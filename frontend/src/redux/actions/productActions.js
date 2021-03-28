@@ -5,23 +5,9 @@ const fetchProductsSuccess = products => ({
   payload: products
 });
 
-
-export const fetchProducts = (products) => async (dispatch) => {
-  try {
-    //const { data } = await axios.get(`/api/products?keyword=${keyword}&pageNumber=${pageNumber}`);
-    console.log(data);
-    dispatch(fetchProductsSuccess(products));
-  } catch (error) {
-    dispatch({
-      type: PRODUCT_LIST_FAIL,
-      payload: error.response && error.response.data.msg,
-    });
-  }
-};
-
 // fetch products
-// export const fetchProducts = products => {
-//   return dispatch => {
-//     dispatch(fetchProductsSuccess(products));
-//   };
-// };
+export const fetchProducts = products => {
+  return dispatch => {
+    dispatch(fetchProductsSuccess(products));
+  };
+};
