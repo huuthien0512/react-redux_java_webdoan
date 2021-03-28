@@ -1,0 +1,2 @@
+INDEX VERSION 1.131+C:\HUTECH\Nam4\Java\react-redux_java_webdoan\.metadata\.plugins\org.eclipse.jdt.core
+1965174767.index
