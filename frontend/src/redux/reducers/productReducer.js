@@ -1,15 +1,21 @@
-import { FETCH_PRODUCTS_SUCCESS } from "../actions/productActions";
+import { 
+  FETCH_PRODUCTS_SUCCESS,
+  FETCH_PRODUCTS_FAIL,
+  FETCH_PRODUCTS_REQUEST } from '../constants/productConstants'
 
 const initState = {
   products: []
 };
 
 const productReducer = (state = initState, action) => {
-  if (action.type === FETCH_PRODUCTS_SUCCESS) {
-    return {
-      ...state,
-      products: action.payload
-    };
+  switch (action.type) {
+    case FETCH_PRODUCTS_REQUEST:
+      return { loading: false, ...state };
+    case FETCH_PRODUCTS_SUCCESS:
+      return {
+        ...state,
+        products: action.payload
+      };
   }
 
   return state;

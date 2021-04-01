@@ -1,14 +1,60 @@
 import PropTypes from "prop-types";
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useEffect} from "react";
 import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import Card from "react-bootstrap/Card";
 import Accordion from "react-bootstrap/Accordion";
 import Layout from "../layouts/Layout";
 import Breadcrumb from "../wrappers/breadcrumb/Breadcrumb";
+import { connect } from "react-redux";
+import  { Redirect } from 'react-router-dom'
+import { updateProfile, updatePassword } from "../redux/actions/userActions";
 
-const MyAccount = ({ location }) => {
+
+const MyAccount = ({ history, location, userLogin, updateProfile, updatePassword}) => {
   const { pathname } = location;
+  
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [firstname, setFirstname] = useState('');
+  const [lastname, setLastname] = useState('');
+  const [email, setEmail] = useState('');
+  const [telephone, setTelephone] = useState('');
+
+  useEffect(() => {
+    if (userLogin) {
+      console.log(userLogin.username)
+      setUsername(userLogin.username);
+      setFirstname(userLogin.firstname);
+      setLastname(userLogin.lastname);
+      setEmail(userLogin.email);
+      setTelephone(userLogin.telephone);
+    } else {
+      history.push('/login-register');
+    }
+  }, [userLogin, Redirect, history]);
+
+  const newInfo={
+    firstname:firstname,
+    password:password,
+    email:email,
+    telephone:telephone,
+  }
+
+  const newInfoPassword={
+    password:password,
+  }
+
+  const submitHandlerUpdateProfile=(e)=>{
+    e.preventDefault();
+      updateProfile(newInfo, userLogin);
+  }
+
+  const submitHandlerUpdatePassword=(e)=>{
+    e.preventDefault();
+      updatePassword(newInfoPassword, userLogin);
+  }
 
   return (
     <Fragment>
@@ -36,7 +82,7 @@ const MyAccount = ({ location }) => {
                       <Card.Header className="panel-heading">
                         <Accordion.Toggle variant="link" eventKey="0">
                           <h3 className="panel-title">
-                            <span>1 .</span> Edit your account information{" "}
+                            <span>1 .</span> Sửa đổi thông tin tài khoản{" "}
                           </h3>
                         </Accordion.Toggle>
                       </Card.Header>
@@ -44,44 +90,48 @@ const MyAccount = ({ location }) => {
                         <Card.Body>
                           <div className="myaccount-info-wrapper">
                             <div className="account-info-wrapper">
-                              <h4>My Account Information</h4>
-                              <h5>Your Personal Details</h5>
+                              <h4>Thông tin tài khoản của bạn</h4>
                             </div>
                             <div className="row">
                               <div className="col-lg-6 col-md-6">
                                 <div className="billing-info">
-                                  <label>First Name</label>
-                                  <input type="text" />
+                                  <label>Họ</label>
+                                  <input type="text"
+                                    value={firstname}
+                                    onChange={(e)=>setFirstname(e.target.value)}
+                                    />
                                 </div>
                               </div>
                               <div className="col-lg-6 col-md-6">
                                 <div className="billing-info">
-                                  <label>Last Name</label>
-                                  <input type="text" />
+                                  <label>Tên</label>
+                                  <input type="text" 
+                                  value={lastname}
+                                  onChange={(e)=>setLastname(e.target.value)}/>
                                 </div>
                               </div>
                               <div className="col-lg-12 col-md-12">
                                 <div className="billing-info">
-                                  <label>Email Address</label>
-                                  <input type="email" />
+                                  <label>Email</label>
+                                  <input type="email"
+                                  value={email}
+                                  onChange={(e)=>setEmail(e.target.value)}
+                                  />
                                 </div>
                               </div>
                               <div className="col-lg-6 col-md-6">
                                 <div className="billing-info">
-                                  <label>Telephone</label>
-                                  <input type="text" />
-                                </div>
-                              </div>
-                              <div className="col-lg-6 col-md-6">
-                                <div className="billing-info">
-                                  <label>Fax</label>
-                                  <input type="text" />
+                                  <label>Số điện thoại</label>
+                                  <input type="text" 
+                                  value={telephone}
+                                  onChange={(e)=>setTelephone(e.target.value)}
+                                  />
                                 </div>
                               </div>
                             </div>
                             <div className="billing-back-btn">
                               <div className="billing-btn">
-                                <button type="submit">Continue</button>
+                                <button type="submit" onClick={submitHandlerUpdateProfile}>Cập nhật</button>
                               </div>
                             </div>
                           </div>
@@ -92,77 +142,34 @@ const MyAccount = ({ location }) => {
                       <Card.Header className="panel-heading">
                         <Accordion.Toggle variant="link" eventKey="1">
                           <h3 className="panel-title">
-                            <span>2 .</span> Change your password
+                            <span>2 .</span> Thay đổi mật khẩu
                           </h3>
                         </Accordion.Toggle>
                       </Card.Header>
                       <Accordion.Collapse eventKey="1">
                         <Card.Body>
                           <div className="myaccount-info-wrapper">
-                            <div className="account-info-wrapper">
-                              <h4>Change Password</h4>
-                              <h5>Your Password</h5>
-                            </div>
                             <div className="row">
                               <div className="col-lg-12 col-md-12">
                                 <div className="billing-info">
-                                  <label>Password</label>
-                                  <input type="password" />
+                                  <label>Mật khẩu</label>
+                                  <input type="password" 
+                                  value={password}
+                                  onChange={(e)=>setPassword(e.target.value)}/>
                                 </div>
                               </div>
                               <div className="col-lg-12 col-md-12">
                                 <div className="billing-info">
-                                  <label>Password Confirm</label>
-                                  <input type="password" />
+                                  <label>Nhập lại mật khẩu</label>
+                                  <input type="password" 
+                                  value={newPassword}
+                                  onChange={(e)=>setNewPassword(e.target.value)}/>
                                 </div>
                               </div>
                             </div>
                             <div className="billing-back-btn">
                               <div className="billing-btn">
-                                <button type="submit">Continue</button>
-                              </div>
-                            </div>
-                          </div>
-                        </Card.Body>
-                      </Accordion.Collapse>
-                    </Card>
-                    <Card className="single-my-account mb-20">
-                      <Card.Header className="panel-heading">
-                        <Accordion.Toggle variant="link" eventKey="2">
-                          <h3 className="panel-title">
-                            <span>3 .</span> Modify your address book entries{" "}
-                          </h3>
-                        </Accordion.Toggle>
-                      </Card.Header>
-                      <Accordion.Collapse eventKey="2">
-                        <Card.Body>
-                          <div className="myaccount-info-wrapper">
-                            <div className="account-info-wrapper">
-                              <h4>Address Book Entries</h4>
-                            </div>
-                            <div className="entries-wrapper">
-                              <div className="row">
-                                <div className="col-lg-6 col-md-6 d-flex align-items-center justify-content-center">
-                                  <div className="entries-info text-center">
-                                    <p>Farhana hayder (shuvo) </p>
-                                    <p>hastech </p>
-                                    <p> Road#1 , Block#c </p>
-                                    <p> Rampura. </p>
-                                    <p>Dhaka </p>
-                                    <p>Bangladesh </p>
-                                  </div>
-                                </div>
-                                <div className="col-lg-6 col-md-6 d-flex align-items-center justify-content-center">
-                                  <div className="entries-edit-delete text-center">
-                                    <button className="edit">Edit</button>
-                                    <button>Delete</button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="billing-back-btn">
-                              <div className="billing-btn">
-                                <button type="submit">Continue</button>
+                                <button type="submit" onClick={submitHandlerUpdatePassword}>Thay đổi</button>
                               </div>
                             </div>
                           </div>
@@ -180,8 +187,27 @@ const MyAccount = ({ location }) => {
   );
 };
 
+
+const mapStateToProps = state => {
+  return {
+    userLogin: state.loginData.users,
+  };
+};
+const mapDispatchToProps = dispatch => {
+  
+  return {
+    updateProfile: (newInfo, userLogin) => {
+      dispatch(updateProfile(newInfo, userLogin));
+    },
+    updatePassword: (newInfoPassword, userLogin) => {
+      dispatch(updatePassword(newInfoPassword, userLogin));
+    }
+  };
+};
 MyAccount.propTypes = {
-  location: PropTypes.object
+  location: PropTypes.object,
+  updateProfile: PropTypes.func,
+  userLogin: PropTypes.object
 };
 
-export default MyAccount;
+export default connect(mapStateToProps, mapDispatchToProps)(MyAccount);

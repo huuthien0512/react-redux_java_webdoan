@@ -7,23 +7,30 @@ import thunk from "redux-thunk";
 // import { save, load } from "redux-localstorage-simple";
 import { Provider } from "react-redux";
 import { fetchProducts } from "./redux/actions/productActions";
+import { fetchBlogs } from "./redux/actions/blogActions";
 import rootReducer from "./redux/reducers/rootReducer";
-import products from "./data/products.json";
+//import products from "./data/products.json";
 import App from "./App";
 import "./assets/scss/style.scss";
 import * as serviceWorker from "./serviceWorker";
 
 import { composeWithDevTools } from "redux-devtools-extension";
 
+const userInfoFormLocalStore=localStorage.getItem('users')?JSON.parse(localStorage.getItem('users')):null
+const initialState={
+  loginData:{users:userInfoFormLocalStore}
+}
 const store = createStore(
   rootReducer,
   // load(),
+  initialState,
   composeWithDevTools(applyMiddleware(thunk))
 );
 
 
 // fetch products from json file
-store.dispatch(fetchProducts(products));
+store.dispatch(fetchProducts());
+store.dispatch(fetchBlogs());
 
 ReactDOM.render(
   <Provider store={store}>

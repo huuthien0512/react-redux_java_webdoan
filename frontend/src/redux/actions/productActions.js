@@ -1,13 +1,38 @@
-export const FETCH_PRODUCTS_SUCCESS = "FETCH_PRODUCTS_SUCCESS";
+import axios from 'axios';
 
-const fetchProductsSuccess = products => ({
-  type: FETCH_PRODUCTS_SUCCESS,
-  payload: products
-});
+import {
+  FETCH_PRODUCTS_SUCCESS,
+  FETCH_PRODUCTS_FAIL,
+  FETCH_PRODUCTS_REQUEST} from '../constants/productConstants';
+import {BASE_URL} from '../constants/URL_SERVER';
 
-// fetch products
-export const fetchProducts = products => {
-  return dispatch => {
-    dispatch(fetchProductsSuccess(products));
-  };
+// const fetchProductsSuccess = products => ({
+//   type: FETCH_PRODUCTS_SUCCESS,
+//   payload: products
+// });
+
+export const fetchProducts = () => async(dispatch) => {
+  try {
+    dispatch({ type: FETCH_PRODUCTS_REQUEST });
+    const {data} = await axios.get(`${BASE_URL}/products`);
+    dispatch({
+      type: FETCH_PRODUCTS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: FETCH_PRODUCTS_FAIL,
+     // payload: error.response && error.response.data.msg,
+      payload: [],
+    });
+  }
 };
+
+
+
+//fetch products
+// export const fetchProducts = products => {
+//   return dispatch => {
+//     dispatch(fetchProductsSuccess(products));
+//   };
+// };

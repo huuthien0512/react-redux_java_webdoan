@@ -7,29 +7,17 @@ export const DELETE_ALL_FROM_CART = "DELETE_ALL_FROM_CART";
 export const addToCart = (
   item,
   addToast,
-  quantityCount,
-  selectedProductColor,
-  selectedProductSize
+  quantityCount
 ) => {
   return dispatch => {
     if (addToast) {
-      addToast("Added To Cart", { appearance: "success", autoDismiss: true });
+      addToast("Đã thêm vào giỏ hàng", { appearance: "success", autoDismiss: true });
     }
     dispatch({
       type: ADD_TO_CART,
       payload: {
         ...item,
-        quantity: quantityCount,
-        selectedProductColor: selectedProductColor
-          ? selectedProductColor
-          : item.selectedProductColor
-          ? item.selectedProductColor
-          : null,
-        selectedProductSize: selectedProductSize
-          ? selectedProductSize
-          : item.selectedProductSize
-          ? item.selectedProductSize
-          : null
+        quantity: quantityCount
       }
     });
   };
@@ -38,7 +26,7 @@ export const addToCart = (
 export const decreaseQuantity = (item, addToast) => {
   return dispatch => {
     if (addToast) {
-      addToast("Item Decremented From Cart", {
+      addToast("Giảm số lượng sản phẩm", {
         appearance: "warning",
         autoDismiss: true
       });
@@ -50,7 +38,7 @@ export const decreaseQuantity = (item, addToast) => {
 export const deleteFromCart = (item, addToast) => {
   return dispatch => {
     if (addToast) {
-      addToast("Removed From Cart", { appearance: "error", autoDismiss: true });
+      addToast("Xóa sản phẩm khỏi giỏ hàng", { appearance: "error", autoDismiss: true });
     }
     dispatch({ type: DELETE_FROM_CART, payload: item });
   };
@@ -59,7 +47,7 @@ export const deleteFromCart = (item, addToast) => {
 export const deleteAllFromCart = addToast => {
   return dispatch => {
     if (addToast) {
-      addToast("Removed All From Cart", {
+      addToast("Xóa tất cả sản phẩm khỏi giỏ hàng", {
         appearance: "error",
         autoDismiss: true
       });

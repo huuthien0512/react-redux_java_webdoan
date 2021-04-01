@@ -1,0 +1,1 @@
+mongoimport --uri "mongodb+srv://huuthien198zz:choigame123@ecommercedb.f0jth.mongodb.net/ecommerceDB" --collection Product --drop --file C:\HUTECH\Nam4\Java\react-redux_java_webdoan\dataForImport\products.json --jsonArray

@@ -29,15 +29,13 @@ const ProductDescriptionInfoSlider = ({
     product.variation ? product.variation[0].size[0].name : ""
   );
   const [productStock, setProductStock] = useState(
-    product.variation ? product.variation[0].size[0].stock : product.stock
+    product ? product.qty : 0
   );
   const [quantityCount, setQuantityCount] = useState(1);
 
   const productCartQty = getProductCartQuantity(
     cartItems,
-    product,
-    selectedProductColor,
-    selectedProductSize
+    product
   );
 
   return (
@@ -68,12 +66,12 @@ const ProductDescriptionInfoSlider = ({
         <p>{product.shortDescription}</p>
       </div>
 
-      {product.variation ? (
+      {product ? (
         <div className="pro-details-size-color justify-content-center">
           <div className="pro-details-color-wrap">
             <span>Color</span>
             <div className="pro-details-color-content">
-              {product.variation.map((single, key) => {
+              {product.map((single, key) => {
                 return (
                   <label
                     className={`pro-details-color-content--single ${single.color}`}
@@ -102,8 +100,8 @@ const ProductDescriptionInfoSlider = ({
           <div className="pro-details-size">
             <span>Size</span>
             <div className="pro-details-size-content">
-              {product.variation &&
-                product.variation.map(single => {
+              {product &&
+                product.map(single => {
                   return single.color === selectedProductColor
                     ? single.size.map((singleSize, key) => {
                         return (
@@ -186,9 +184,7 @@ const ProductDescriptionInfoSlider = ({
                   addToCart(
                     product,
                     addToast,
-                    quantityCount,
-                    selectedProductColor,
-                    selectedProductSize
+                    quantityCount
                   )
                 }
                 disabled={productCartQty >= productStock}
@@ -321,16 +317,12 @@ const mapDispatchToProps = dispatch => {
       item,
       addToast,
       quantityCount,
-      selectedProductColor,
-      selectedProductSize
     ) => {
       dispatch(
         addToCart(
           item,
           addToast,
           quantityCount,
-          selectedProductColor,
-          selectedProductSize
         )
       );
     },

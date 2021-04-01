@@ -18,7 +18,7 @@ const Product = ({ location, product }) => {
         <title>H2O | Product Page</title>
         <meta
           name="description"
-          content="Trang Sản Phẩm."
+          content="Trang Chi Tiết Sản Phẩm."
         />
       </MetaTags>
 

@@ -73,14 +73,14 @@ const ProductImageGalleryLeftThumb = ({ product, thumbPosition }) => {
           }`}
         >
           <div className="product-large-image-wrapper">
-            {product.discount || product.new ? (
+            {product.discount || product.isNew ? (
               <div className="product-img-badges">
                 {product.discount ? (
                   <span className="pink">-{product.discount}%</span>
                 ) : (
                   ""
                 )}
-                {product.new ? <span className="purple">New</span> : ""}
+                {product.isNew ? <span className="purple">New</span> : ""}
               </div>
             ) : (
               ""
@@ -104,6 +104,7 @@ const ProductImageGalleryLeftThumb = ({ product, thumbPosition }) => {
                             src={process.env.PUBLIC_URL + single}
                             className="img-fluid"
                             alt=""
+                            height="400"
                           />
                         </div>
                       </div>

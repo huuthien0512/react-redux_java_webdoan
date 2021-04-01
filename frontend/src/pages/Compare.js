@@ -110,8 +110,8 @@ const Compare = ({
                                       >
                                         Select Option
                                       </Link>
-                                    ) : compareItem.stock &&
-                                      compareItem.stock > 0 ? (
+                                    ) : compareItem.qty &&
+                                      compareItem.qty > 0 ? (
                                       <button
                                         onClick={() =>
                                           addToCart(compareItem, addToast)

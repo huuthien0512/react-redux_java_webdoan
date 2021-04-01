@@ -54,14 +54,14 @@ const ProductGridSingle = ({
                 ""
               )}
             </Link>
-            {product.discount || product.new ? (
+            {product.discount || product.isNew ? (
               <div className="product-img-badges">
                 {product.discount ? (
                   <span className="pink">-{product.discount}%</span>
                 ) : (
                   ""
                 )}
-                {product.new ? <span className="purple">New</span> : ""}
+                {product.isNew ? <span className="purple">New</span> : ""}
               </div>
             ) : (
               ""
@@ -92,11 +92,11 @@ const ProductGridSingle = ({
                     {" "}
                     Buy now{" "}
                   </a>
-                ) : product.variation && product.variation.length >= 1 ? (
+                ) : product && product.length >= 1 ? (
                   <Link to={`${process.env.PUBLIC_URL}/product/${product.id}`}>
                     Select Option
                   </Link>
-                ) : product.stock && product.stock > 0 ? (
+                ) : product.qty && product.qty > 0 ? (
                   <button
                     onClick={() => addToCart(product, addToast)}
                     className={

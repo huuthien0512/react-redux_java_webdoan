@@ -4,14 +4,14 @@ import React from "react";
 const ProductImageFixed = ({ product }) => {
   return (
     <div className="product-large-image-wrapper">
-      {product.discount || product.new ? (
+      {product.discount || product.isNew ? (
         <div className="product-img-badges">
           {product.discount ? (
             <span className="pink">-{product.discount}%</span>
           ) : (
             ""
           )}
-          {product.new ? <span className="purple">New</span> : ""}
+          {product.isNew ? <span className="purple">New</span> : ""}
         </div>
       ) : (
         ""

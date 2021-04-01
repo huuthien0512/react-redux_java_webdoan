@@ -7,7 +7,7 @@ export const getProducts = (products, category, type, limit) => {
     : products;
 
   if (type && type === "sanphammoi") {
-    const newProducts = finalProducts.filter(single => single.new);
+    const newProducts = finalProducts.filter(single => single.isNew);
     return newProducts.slice(0, limit ? limit : newProducts.length);
   }
   if (type && type === "sanphambanchay") {

@@ -86,17 +86,13 @@ const mapDispatchToProps = dispatch => {
     addToCart: (
       item,
       addToast,
-      quantityCount,
-      selectedProductColor,
-      selectedProductSize
+      quantityCount
     ) => {
       dispatch(
         addToCart(
           item,
           addToast,
-          quantityCount,
-          selectedProductColor,
-          selectedProductSize
+          quantityCount
         )
       );
     },

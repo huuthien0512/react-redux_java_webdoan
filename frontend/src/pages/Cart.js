@@ -52,19 +52,19 @@ const Cart = ({
           <div className="container">
             {cartItems && cartItems.length >= 1 ? (
               <Fragment>
-                <h3 className="cart-page-title">Your cart items</h3>
+                <h3 className="cart-page-title">Giỏ hàng của bạn</h3>
                 <div className="row">
                   <div className="col-12">
                     <div className="table-content table-responsive cart-table-content">
                       <table>
                         <thead>
                           <tr>
-                            <th>Image</th>
-                            <th>Product Name</th>
-                            <th>Unit Price</th>
-                            <th>Qty</th>
-                            <th>Subtotal</th>
-                            <th>action</th>
+                            <th>Hình Ảnh</th>
+                            <th>Tên Sản Phẩm</th>
+                            <th>Giá</th>
+                            <th>Số Lượng</th>
+                            <th>Tổng</th>
+                            <th>Hành Động</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -225,14 +225,14 @@ const Cart = ({
                     <div className="cart-shiping-update-wrapper">
                       <div className="cart-shiping-update">
                         <Link
-                          to={process.env.PUBLIC_URL + "/shop-grid-standard"}
+                          to={process.env.PUBLIC_URL + "/shop"}
                         >
-                          Continue Shopping
+                          Tiếp Tục Mua Hàng
                         </Link>
                       </div>
                       <div className="cart-clear">
                         <button onClick={() => deleteAllFromCart(addToast)}>
-                          Clear Shopping Cart
+                          Xóa Giỏ Hàng
                         </button>
                       </div>
                     </div>
@@ -244,41 +244,44 @@ const Cart = ({
                     <div className="cart-tax">
                       <div className="title-wrap">
                         <h4 className="cart-bottom-title section-bg-gray">
-                          Estimate Shipping And Tax
+                          Thông Tin Giao Hàng
                         </h4>
                       </div>
                       <div className="tax-wrapper">
                         <p>
-                          Enter your destination to get a shipping estimate.
+                          Nhập Thông Tin Của Bạn
                         </p>
                         <div className="tax-select-wrapper">
-                          <div className="tax-select">
-                            <label>* Country</label>
-                            <select className="email s-email s-wid">
-                              <option>Bangladesh</option>
-                              <option>Albania</option>
-                              <option>Åland Islands</option>
-                              <option>Afghanistan</option>
-                              <option>Belgium</option>
-                            </select>
+                        <div className="tax-select">
+                            <label>* Tên Người Nhận</label>
+                              <input type="text" />
                           </div>
                           <div className="tax-select">
-                            <label>* Region / State</label>
-                            <select className="email s-email s-wid">
-                              <option>Bangladesh</option>
-                              <option>Albania</option>
-                              <option>Åland Islands</option>
-                              <option>Afghanistan</option>
-                              <option>Belgium</option>
-                            </select>
+                            <label>* Địa Chỉ</label>
+                            <input type="text" />
+                            {/* <select className="email s-email s-wid">
+                              <option>Việt Nam</option>
+                              <option>Trung Quốc</option>
+                              <option>Nhật Bản</option>
+                              <option>Ấn Độ</option>
+                              <option>Thái Lan</option>
+                            </select> */}
                           </div>
                           <div className="tax-select">
-                            <label>* Zip/Postal Code</label>
+                            <label>* Quận / Huyện</label>
+                            <input type="text" />
+                            {/* <select className="email s-email s-wid">
+                              <option>Quận 1</option>
+                              <option>Quận 2</option>
+                              <option>Quận 3</option>
+                              <option>Quận 4</option>
+                              <option>Quận 5</option>
+                            </select> */}
+                          </div>
+                          <div className="tax-select">
+                            <label>* Thành Phố</label>
                             <input type="text" />
                           </div>
-                          <button className="cart-btn-2" type="submit">
-                            Get A Quote
-                          </button>
                         </div>
                       </div>
                     </div>
@@ -288,15 +291,15 @@ const Cart = ({
                     <div className="discount-code-wrapper">
                       <div className="title-wrap">
                         <h4 className="cart-bottom-title section-bg-gray">
-                          Use Coupon Code
+                          Mã Giảm Giá
                         </h4>
                       </div>
                       <div className="discount-code">
-                        <p>Enter your coupon code if you have one.</p>
+                        <p>Nhập mã giảm giá.</p>
                         <form>
                           <input type="text" required name="name" />
                           <button className="cart-btn-2" type="submit">
-                            Apply Coupon
+                            Sử Dụng
                           </button>
                         </form>
                       </div>
@@ -307,24 +310,24 @@ const Cart = ({
                     <div className="grand-totall">
                       <div className="title-wrap">
                         <h4 className="cart-bottom-title section-bg-gary-cart">
-                          Cart Total
+                          Tổng Đơn Hàng
                         </h4>
                       </div>
                       <h5>
-                        Total products{" "}
+                        Tổng Sản Phẩm{" "}
                         <span>
                           {currency.currencySymbol + cartTotalPrice.toFixed(2)}
                         </span>
                       </h5>
 
                       <h4 className="grand-totall-title">
-                        Grand Total{" "}
+                        Tổng Cộng{" "}
                         <span>
                           {currency.currencySymbol + cartTotalPrice.toFixed(2)}
                         </span>
                       </h4>
                       <Link to={process.env.PUBLIC_URL + "/checkout"}>
-                        Proceed to Checkout
+                        Tiến Hành Thanh Toán
                       </Link>
                     </div>
                   </div>
@@ -338,9 +341,9 @@ const Cart = ({
                       <i className="pe-7s-cart"></i>
                     </div>
                     <div className="item-empty-area__text">
-                      No items found in cart <br />{" "}
-                      <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
-                        Shop Now
+                      Không có sản phẩm nào trong giỏ hàng của bạn <br />{" "}
+                      <Link to={process.env.PUBLIC_URL + "/shop"}>
+                        Mua Ngay
                       </Link>
                     </div>
                   </div>

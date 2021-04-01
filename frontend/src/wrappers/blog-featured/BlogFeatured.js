@@ -1,10 +1,12 @@
 import PropTypes from "prop-types";
-import React from "react";
-import blogFeaturedData from "../../data/blog-featured/blog-featured.json";
+import React, { useEffect }  from "react";
+import { connect } from 'react-redux';
+
+//import blogFeaturedData from "../../data/blog-featured/blog-featured.json";
 import BlogFeaturedSingle from "../../components/blog-featured/BlogFeaturedSingle";
 import SectionTitle from "../../components/section-title/SectionTitle";
 
-const BlogFeatured = ({ spaceTopClass, spaceBottomClass }) => {
+const BlogFeatured = ({ blogs, spaceTopClass, spaceBottomClass }) => {
   return (
     <div
       className={`blog-area ${spaceTopClass ? spaceTopClass : ""} ${
@@ -18,7 +20,7 @@ const BlogFeatured = ({ spaceTopClass, spaceBottomClass }) => {
           spaceClass="mb-55"
         />
         <div className="row">
-          {blogFeaturedData.map(singlePost => {
+          {blogs.slice(0, 3).map(singlePost => {
             return (
               <BlogFeaturedSingle singlePost={singlePost} key={singlePost.id} />
             );
@@ -34,4 +36,9 @@ BlogFeatured.propTypes = {
   spaceTopClass: PropTypes.string
 };
 
-export default BlogFeatured;
+const mapStateToProps = (state) => {
+  return {
+    blogs: state.blogData.blogs,
+  };
+};
+export default connect(mapStateToProps)(BlogFeatured);
