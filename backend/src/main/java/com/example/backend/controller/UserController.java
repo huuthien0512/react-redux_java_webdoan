@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,12 +37,12 @@ public class UserController {
 	}
 	
 	@PostMapping(value = "/user/login")
-	public User login(@RequestBody User user){
+	ResponseEntity<User> login(@RequestBody User user){
 		List <User> listUsers = userRepository.findAll();
 		for(int i=0; i<listUsers.size(); i++)
 			if(listUsers.get(i).getUsername().equals(user.getUsername()) && listUsers.get(i).getPassword().equals(user.getPassword()))
-				return listUsers.get(i);
-		return null;
+				return ResponseEntity.status(200).body(listUsers.get(i));
+		return ResponseEntity.status(400).body(null);
 	}
 	
 //	public boolean checkAdmin(String id) {
@@ -53,9 +54,18 @@ public class UserController {
 //	}
 //	
 	@PostMapping(value = "/user/register")
-	public String createUser(@RequestBody User user) {
-		userRepository.insert(user);
-		return "OK";
+	ResponseEntity<String> createUser(@RequestBody User user) {
+		List<User> listUsers = userRepository.findAll();
+		for(int i=0; i<listUsers.size(); i++) {
+			if(listUsers.get(i).getUsername().equals(user.getUsername())) {
+				return ResponseEntity.status(400).body("Username đã tồn tại");
+			}
+			if(listUsers.get(i).getEmail().equals(user.getEmail())) {
+				return ResponseEntity.status(400).body("Email đã tồn tại");
+			}
+		}
+		User insertedUser = userRepository.insert(user);
+		return ResponseEntity.status(200).body("Đăng ký thành công");
 	}
 	@GetMapping(value = "/user/{id}")
 	public Optional<User> getInfo(@PathVariable("id") String id) {

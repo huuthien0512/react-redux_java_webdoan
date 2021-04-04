@@ -22,7 +22,7 @@ const NotFound = ({ location }) => {
       <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
         404 page
       </BreadcrumbsItem>
-      <Layout headerTop="visible">
+      <Layout headerTop="invisible">
         {/* breadcrumb */}
         <Breadcrumb />
         <div className="error-area pt-40 pb-100">

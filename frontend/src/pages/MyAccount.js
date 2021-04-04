@@ -74,7 +74,7 @@ const MyAccount = ({ history, location, userLogin, updateProfile, updatePassword
       <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
         Tài Khoản
       </BreadcrumbsItem>
-      <Layout headerTop="visible">
+      <Layout headerTop="invisible">
         {/* breadcrumb */}
         <Breadcrumb />
         <div className="myaccount-area pb-80 pt-100">

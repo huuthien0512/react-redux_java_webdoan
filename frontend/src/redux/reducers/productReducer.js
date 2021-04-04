@@ -1,13 +1,17 @@
 import { 
   FETCH_PRODUCTS_SUCCESS,
   FETCH_PRODUCTS_FAIL,
-  FETCH_PRODUCTS_REQUEST } from '../constants/productConstants'
+  FETCH_PRODUCTS_REQUEST,
+  SEARCH_PRODUCTS_REQUEST,
+  SEARCH_PRODUCTS_SUCCESS,
+  SEARCH_PRODUCTS_FAIL,
+  SEARCH_PRODUCTS_RESET } from '../constants/productConstants'
 
 const initState = {
   products: []
 };
 
-const productReducer = (state = initState, action) => {
+export const productReducer = (state = initState, action) => {
   switch (action.type) {
     case FETCH_PRODUCTS_REQUEST:
       return { loading: false, ...state };
@@ -21,4 +25,19 @@ const productReducer = (state = initState, action) => {
   return state;
 };
 
-export default productReducer;
+export const productSearch = (state = {}, action) => {
+  switch (action.type) {
+    case SEARCH_PRODUCTS_REQUEST:
+      return { loading: true };
+    case SEARCH_PRODUCTS_SUCCESS:
+      return { loading: false, products: action.payload };
+
+    case SEARCH_PRODUCTS_FAIL:
+      return { loading: false, error: action.payload };
+    case SEARCH_PRODUCTS_RESET:
+      return {};
+
+    default:
+      return state;
+  }
+};

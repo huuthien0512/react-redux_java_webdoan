@@ -45,7 +45,7 @@ const ProductDescriptionTab = ({ spaceBottomClass, productDesc }) => {
               <Tab.Pane eventKey="productDescription">
                 {productDesc}
               </Tab.Pane>
-              <Tab.Pane eventKey="productReviews">
+              {/* <Tab.Pane eventKey="productReviews">
                 <div className="row">
                   <div className="col-lg-7">
                     <div className="review-wrapper">
@@ -129,11 +129,11 @@ const ProductDescriptionTab = ({ spaceBottomClass, productDesc }) => {
                   </div>
                   <div className="col-lg-5">
                     <div className="ratting-form-wrapper pl-50">
-                      <h3>Add a Review</h3>
+                      <h3>Thêm Review</h3>
                       <div className="ratting-form">
                         <form action="#">
                           <div className="star-box">
-                            <span>Your rating:</span>
+                            <span>Rating của bạn:</span>
                             <div className="ratting-star">
                               <i className="fa fa-star" />
                               <i className="fa fa-star" />
@@ -145,7 +145,7 @@ const ProductDescriptionTab = ({ spaceBottomClass, productDesc }) => {
                           <div className="row">
                             <div className="col-md-6">
                               <div className="rating-form-style mb-10">
-                                <input placeholder="Name" type="text" />
+                                <input placeholder="Tên" type="text" />
                               </div>
                             </div>
                             <div className="col-md-6">
@@ -157,7 +157,7 @@ const ProductDescriptionTab = ({ spaceBottomClass, productDesc }) => {
                               <div className="rating-form-style form-submit">
                                 <textarea
                                   name="Your Review"
-                                  placeholder="Message"
+                                  placeholder="Tin nhắn"
                                   defaultValue={""}
                                 />
                                 <input type="submit" defaultValue="Submit" />
@@ -169,7 +169,7 @@ const ProductDescriptionTab = ({ spaceBottomClass, productDesc }) => {
                     </div>
                   </div>
                 </div>
-              </Tab.Pane>
+              </Tab.Pane> */}
             </Tab.Content>
           </Tab.Container>
         </div>

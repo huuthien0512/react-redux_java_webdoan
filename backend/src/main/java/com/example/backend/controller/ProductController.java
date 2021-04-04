@@ -1,5 +1,6 @@
 package com.example.backend.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -35,6 +36,23 @@ public class ProductController {
 	public String createProduct(@RequestBody Product product) {
 		Product insertedProduct = productRepository.insert(product);
 		return "OK";
+	}
+	
+	@PostMapping(value = "/product/search")
+	public List<Product> searchProduct(@RequestBody Map<String, Object> payload) {
+		List<Product> listProducts = productRepository.findAll();
+		List<Product> searchedProducts = new ArrayList<>();
+		for(int i=0; i < listProducts.size(); i++) {
+			System.out.print(listProducts.get(i).getName() + "\\\\" + payload.get("searchString").toString());
+			if (listProducts.get(i).getName().contains(payload.get("searchString").toString())) {
+				System.out.print("YSSSSSSSSS");
+				searchedProducts.add(listProducts.get(i));
+			}
+		}
+			
+				
+		System.out.print(searchedProducts);
+		return searchedProducts;
 	}
 	
 //	@PutMapping(value = "/product/update/{id}")

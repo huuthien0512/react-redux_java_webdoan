@@ -115,10 +115,10 @@ const ProductDescriptionInfo = ({
                 disabled={productCartQty >= productStock}
               >
                 {" "}
-                Add To Cart{" "}
+                Thêm vào giỏ hàng{" "}
               </button>
             ) : (
-              <button disabled>Out of Stock</button>
+              <button disabled>Hết hàng</button>
             )}
           </div>
           <div className="pro-details-wishlist">
@@ -127,8 +127,8 @@ const ProductDescriptionInfo = ({
               disabled={wishlistItem !== undefined}
               title={
                 wishlistItem !== undefined
-                  ? "Added to wishlist"
-                  : "Add to wishlist"
+                  ? "Đã thêm vào wishlist"
+                  : "Thêm vào wishlist"
               }
               onClick={() => addToWishlist(product, addToast)}
             >
@@ -141,8 +141,8 @@ const ProductDescriptionInfo = ({
               disabled={compareItem !== undefined}
               title={
                 compareItem !== undefined
-                  ? "Added to compare"
-                  : "Add to compare"
+                  ? "Đã thêm vào compare"
+                  : "Thêm vào compare"
               }
               onClick={() => addToCompare(product, addToast)}
             >

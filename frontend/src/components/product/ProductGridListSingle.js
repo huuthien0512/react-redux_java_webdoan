@@ -74,8 +74,8 @@ const ProductGridListSingle = ({
                   disabled={wishlistItem !== undefined}
                   title={
                     wishlistItem !== undefined
-                      ? "Added to wishlist"
-                      : "Add to wishlist"
+                      ? "Đã thêm vào wishlist"
+                      : "Thêm vào wishlist"
                   }
                   onClick={() => addToWishlist(product, addToast)}
                 >
@@ -94,7 +94,7 @@ const ProductGridListSingle = ({
                   </a>
                 ) : product && product.quantity >= 0 ? (
                   <Link to={`${process.env.PUBLIC_URL}/product/${product.id}`}>
-                    Select Option
+                    Chọn Sản Phẩm
                   </Link>
                 //) : product.quantity && product.quantity > 0 ? (
                 //   <button
@@ -106,18 +106,18 @@ const ProductGridListSingle = ({
                 //     }
                 //     disabled={cartItem !== undefined && cartItem.quantity > 0}
                 //     title={
-                //       cartItem !== undefined ? "Added to cart" : "Add to cart"
+                //       cartItem !== undefined ? "Đã thêm vào cart" : "Thêm vào cart"
                 //     }
                 //   >
                 //     {" "}
                 //     <i className="pe-7s-cart"></i>{" "}
                 //     {cartItem !== undefined && cartItem.quantity > 0
                 //       ? "Added"
-                //       : "Add to cart"}
+                //       : "Thêm vào cart"}
                 //   </button>
                  ) : (
                   <button disabled className="active">
-                    Out of Stock
+                    Hết hàng
                   </button>
                 )}
               </div>
@@ -242,7 +242,7 @@ const ProductGridListSingle = ({
                       <Link
                         to={`${process.env.PUBLIC_URL}/product/${product.id}`}
                       >
-                        Select Option
+                        Chọn Sản Phẩm
                       </Link>
                     // ) : product.quantity && product.quantity > 0 ? (
                     //   <button
@@ -257,19 +257,19 @@ const ProductGridListSingle = ({
                     //     }
                     //     title={
                     //       cartItem !== undefined
-                    //         ? "Added to cart"
-                    //         : "Add to cart"
+                    //         ? "Đã thêm vào cart"
+                    //         : "Thêm vào cart"
                     //     }
                     //   >
                     //     {" "}
                     //     <i className="pe-7s-cart"></i>{" "}
                     //     {cartItem !== undefined && cartItem.quantity > 0
                     //       ? "Added"
-                    //       : "Add to cart"}
+                    //       : "Thêm vào cart"}
                     //   </button>
                     ) : (
                       <button disabled className="active">
-                        Out of Stock
+                        Hết hàng
                       </button>
                     )}
                   </div>
@@ -280,8 +280,8 @@ const ProductGridListSingle = ({
                       disabled={wishlistItem !== undefined}
                       title={
                         wishlistItem !== undefined
-                          ? "Added to wishlist"
-                          : "Add to wishlist"
+                          ? "Đã thêm vào wishlist"
+                          : "Thêm vào wishlist"
                       }
                       onClick={() => addToWishlist(product, addToast)}
                     >
@@ -294,8 +294,8 @@ const ProductGridListSingle = ({
                       disabled={compareItem !== undefined}
                       title={
                         compareItem !== undefined
-                          ? "Added to compare"
-                          : "Add to compare"
+                          ? "Đã thêm vào compare"
+                          : "Thêm vào compare"
                       }
                       onClick={() => addToCompare(product, addToast)}
                     >

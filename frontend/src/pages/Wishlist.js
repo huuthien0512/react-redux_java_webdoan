@@ -42,7 +42,7 @@ const Wishlist = ({
         Wishlist
       </BreadcrumbsItem>
 
-      <Layout headerTop="visible">
+      <Layout headerTop="invisible">
         {/* breadcrumb */}
         <Breadcrumb />
         <div className="cart-main-area pt-90 pb-100">
@@ -59,7 +59,7 @@ const Wishlist = ({
                             <th>Image</th>
                             <th>Product Name</th>
                             <th>Unit Price</th>
-                            <th>Add To Cart</th>
+                            <th>Thêm vào Cart</th>
                             <th>action</th>
                           </tr>
                         </thead>
@@ -143,7 +143,7 @@ const Wishlist = ({
                                     <Link
                                       to={`${process.env.PUBLIC_URL}/product/${wishlistItem.id}`}
                                     >
-                                      Select option
+                                      Chọn Sản Phẩm
                                     </Link>
                                   ) : wishlistItem.qty &&
                                     wishlistItem.qty > 0 ? (
@@ -163,18 +163,18 @@ const Wishlist = ({
                                       }
                                       title={
                                         wishlistItem !== undefined
-                                          ? "Added to cart"
-                                          : "Add to cart"
+                                          ? "Đã thêm vào cart"
+                                          : "Thêm vào cart"
                                       }
                                     >
                                       {cartItem !== undefined &&
                                       cartItem.quantity > 0
                                         ? "Added"
-                                        : "Add to cart"}
+                                        : "Thêm vào cart"}
                                     </button>
                                   ) : (
                                     <button disabled className="active">
-                                      Out of stock
+                                      Hết hàng
                                     </button>
                                   )}
                                 </td>
@@ -224,7 +224,7 @@ const Wishlist = ({
                       <i className="pe-7s-like"></i>
                     </div>
                     <div className="item-empty-area__text">
-                      No items found in wishlist <br />{" "}
+                      Không có sản phẩm trong wishlist <br />{" "}
                       <Link to={process.env.PUBLIC_URL + "/shop"}>
                        Thêm Sản Phẩm
                       </Link>

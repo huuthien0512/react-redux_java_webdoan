@@ -58,8 +58,16 @@ const IconGroup = ({
           <i className="pe-7s-user-female" />
         </Link>
       }
-        
       </div>
+        <div className="same-style account-setting d-none d-lg-block">
+        {userLogin && userLogin.isAdmin?
+          <Link to={process.env.PUBLIC_URL + "/admin"} className="account-setting-active">
+            <i className="pe-7s-study" />
+          </Link>
+          :""
+        }
+      </div>
+      
       <div className="same-style header-compare">
         <Link to={process.env.PUBLIC_URL + "/compare"}>
           <i className="pe-7s-shuffle" />
@@ -101,11 +109,13 @@ const IconGroup = ({
         </Link>
       </div>
       <div>&nbsp;&nbsp;&nbsp;</div>
+      {userLogin ?
       <div className="same-style header-compare">
         <button onClick={() => handleLogout()}>
           <i className="pe-7s-right-arrow" />
         </button>
-      </div>
+      </div>:""
+      }
       <div className="same-style mobile-off-canvas d-block d-lg-none">
         <button
           className="mobile-aside-button"

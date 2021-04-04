@@ -22,7 +22,7 @@ const Contact = ({ location }) => {
       <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
         Liên Hệ
       </BreadcrumbsItem>
-      <Layout headerTop="visible">
+      <Layout headerTop="invisible">
         {/* breadcrumb */}
         <Breadcrumb />
         <div className="contact-area pt-100 pb-100">

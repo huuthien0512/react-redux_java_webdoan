@@ -44,7 +44,7 @@ const Blog = ({ location, blogs }) => {
       <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
         Blog
       </BreadcrumbsItem>
-      <Layout headerTop="visible">
+      <Layout headerTop="invisible">
         {/* breadcrumb */}
         <Breadcrumb />
         <div className="blog-area pt-100 pb-100">

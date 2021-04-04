@@ -67,12 +67,12 @@ export const login = (username, password) => async(dispatch) => {
     });
     localStorage.setItem('users', JSON.stringify(data));
   } catch (error) {
-    // document.write("ls")
-    // dispatch({
-    //   type: USER_LOGIN_FAIL,
-    //  // payload: error.response && error.response.data.msg,
-    //   payload: [],
-    // });
+    dispatch({
+      type: USER_LOGIN_FAIL,
+      //payload: error.response && error.response.data,
+      payload: "Sai tài khoản hoặc mật khẩu"
+    });
+    
   }
 };
 
@@ -80,18 +80,15 @@ export const register = (username, password, email) => async(dispatch) => {
   try {
     dispatch({ type: USER_REGISTER_REQUEST });
     const {data} = await axios.post(`${BASE_URL}/user/register`, {username, password, email});
-    //document.write(data)
     dispatch({
       type: USER_REGISTER_SUCCESS,
       payload: data,
     });
   } catch (error) {
-    // document.write("ls")
-    // dispatch({
-    //   type: USER_REGISTER_FAIL,
-    //  // payload: error.response && error.response.data.msg,
-    //   payload: [],
-    // });
+    dispatch({
+      type: USER_REGISTER_FAIL,
+      payload: error.response.data,
+    });
   }
 };
 

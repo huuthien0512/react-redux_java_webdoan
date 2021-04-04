@@ -27,7 +27,7 @@ const Product = ({ location, product }) => {
         Cửa Hàng Đồ Ăn
       </BreadcrumbsItem>
 
-      <Layout headerTop="visible">
+      <Layout headerTop="invisible">
         {/* breadcrumb */}
         <Breadcrumb />
 

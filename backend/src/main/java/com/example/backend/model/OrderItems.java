@@ -2,22 +2,20 @@ package com.example.backend.model;
 
 public class OrderItems {
 	private String name;
-	private int qty;
+	private int quantity;
 	private String image;
 	private float price;
-	private String product;
 	
 	public OrderItems() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public OrderItems(String name, int qty, String image, float price, String product) {
+	public OrderItems(String name, int quantity, String image, float price) {
 		super();
 		this.name = name;
-		this.qty = qty;
+		this.quantity = quantity;
 		this.image = image;
 		this.price = price;
-		this.product = product;
 	}
 	public String getName() {
 		return name;
@@ -25,11 +23,11 @@ public class OrderItems {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getQty() {
-		return qty;
+	public int getQuantity() {
+		return quantity;
 	}
-	public void setQty(int qty) {
-		this.qty = qty;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 	public String getImage() {
 		return image;
@@ -42,12 +40,6 @@ public class OrderItems {
 	}
 	public void setPrice(float price) {
 		this.price = price;
-	}
-	public String getProduct() {
-		return product;
-	}
-	public void setProduct(String product) {
-		this.product = product;
 	}
 	
 }

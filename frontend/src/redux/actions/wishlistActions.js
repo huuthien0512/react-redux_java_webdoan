@@ -2,11 +2,11 @@ export const ADD_TO_WISHLIST = "ADD_TO_WISHLIST";
 export const DELETE_FROM_WISHLIST = "DELETE_FROM_WISHLIST";
 export const DELETE_ALL_FROM_WISHLIST = "DELETE_ALL_FROM_WISHLIST";
 
-// add to wishlist
+// Thêm vào wishlist
 export const addToWishlist = (item, addToast) => {
   return dispatch => {
     if (addToast) {
-      addToast("Added To Wishlist", {
+      addToast("Đã thêm vào Wishlist", {
         appearance: "success",
         autoDismiss: true
       });

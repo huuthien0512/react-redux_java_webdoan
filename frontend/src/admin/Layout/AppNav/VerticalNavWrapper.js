@@ -13,7 +13,7 @@ class Nav extends Component {
         return (
             <Fragment>
                 <h5 className="app-sidebar__heading">Menu</h5>
-                <MetisMenu content={MainNav} activeLinkFromLocation className="vertical-nav-menu" iconNamePrefix="" classNameStateIcon="pe-7s-angle-down"/>
+                {/* <MetisMenu content={MainNav} activeLinkFromLocation className="vertical-nav-menu" iconNamePrefix="" classNameStateIcon="pe-7s-angle-down"/> */}
 
                 <MetisMenu content={Users} activeLinkFromLocation className="vertical-nav-menu" iconNamePrefix="" classNameStateIcon="pe-7s-angle-down" />
                 {/* <h5 className="app-sidebar__heading">UI Components</h5>

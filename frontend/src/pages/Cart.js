@@ -45,7 +45,7 @@ const Cart = ({
         Giỏ Hàng
       </BreadcrumbsItem>
 
-      <Layout headerTop="visible">
+      <Layout headerTop="invisible">
         {/* breadcrumb */}
         <Breadcrumb />
         <div className="cart-main-area pt-90 pb-100">

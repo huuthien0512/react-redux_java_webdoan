@@ -22,6 +22,8 @@ const Shop = ({location, products}) => {
     const [currentData, setCurrentData] = useState([]);
     const [sortedProducts, setSortedProducts] = useState([]);
 
+    const [searchedProducts, setSearchedProducts] = useState();
+    
     const pageLimit = 9;
     const {pathname} = location;
 
@@ -39,13 +41,21 @@ const Shop = ({location, products}) => {
         setFilterSortValue(sortValue);
     }
 
+    const getSearchProducts = (products) => {
+        setSearchedProducts(products);
+    }
+    
     useEffect(() => {
+        
         let sortedProducts = getSortedProducts(products, sortType, sortValue);
         const filterSortedProducts = getSortedProducts(sortedProducts, filterSortType, filterSortValue);
+        
         sortedProducts = filterSortedProducts;
         setSortedProducts(sortedProducts);
-        setCurrentData(sortedProducts.slice(offset, offset + pageLimit));
-    }, [offset, products, sortType, sortValue, filterSortType, filterSortValue ]);
+        setCurrentData(searchedProducts ? searchedProducts.slice(offset, offset + pageLimit): sortedProducts.slice(offset, offset + pageLimit));
+        // setSortedProducts(sortedProducts);
+        // setCurrentData(sortedProducts.slice(offset, offset + pageLimit));
+    }, [offset, products, sortType, sortValue, filterSortType, filterSortValue, searchedProducts ]);
 
     return (
         <Fragment>
@@ -57,7 +67,7 @@ const Shop = ({location, products}) => {
             <BreadcrumbsItem to={process.env.PUBLIC_URL + '/'}>Trang Chủ</BreadcrumbsItem>
             <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>Cửa Hàng</BreadcrumbsItem>
 
-            <Layout headerTop="visible">
+            <Layout headerTop="invisible">
                 {/* breadcrumb */}
                 <Breadcrumb />
 
@@ -66,7 +76,7 @@ const Shop = ({location, products}) => {
                         <div className="row">
                             <div className="col-lg-3 order-2 order-lg-1">
                                 {/* shop sidebar */}
-                                <ShopSidebar products={products} getSortParams={getSortParams} sideSpaceClass="mr-30"/>
+                                <ShopSidebar products={products} getSortParams={getSortParams} sideSpaceClass="mr-30" getSearchProducts={getSearchProducts}/>
                             </div>
                             <div className="col-lg-9 order-1 order-lg-2">
                                 {/* shop topbar default */}
@@ -100,12 +110,12 @@ const Shop = ({location, products}) => {
 
 Shop.propTypes = {
   location: PropTypes.object,
-  products: PropTypes.array
+  products: PropTypes.array,
 }
 
 const mapStateToProps = state => {
     return{
-        products: state.productData.products
+        products: state.productData.products,
     }
 }
 

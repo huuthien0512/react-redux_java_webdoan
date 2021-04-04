@@ -9,32 +9,47 @@ import Layout from "../layouts/Layout";
 import Breadcrumb from "../wrappers/breadcrumb/Breadcrumb";
 import {login, register} from '../redux/actions/userActions';
 import { connect } from "react-redux";
+import Message from '../components/Message';
 
-const LoginRegister = ({ location, login, register, userLogin, history}) => {
+const LoginRegister = ({ location, login, register, userLogin, history, errorLogin, errorRegister}) => {
+
   
   const { pathname } = location;
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+
+  const [successRegister, setSuccessRegister] = useState();
   
   useEffect(()=>{
     if(userLogin){
       history.push('/')
     }
+    
   },[history, userLogin]);
   
   const submitHandler=(e)=>{
       e.preventDefault();
       login(username,password)
+      
   }
 
+  const submitRegisterHandler=(e)=>{
+    e.preventDefault();
+    register(username,password, email)
+    if (!errorRegister){
+      setSuccessRegister('Đăng Ký Thành Công')
+      window.location.reload();
+      //history.push('/login-register')
+    }
+}
 
   return (
     
     <Fragment>
       <MetaTags>
-        <title>Flone | Login</title>
+        <title>H2O | Đăng Nhập</title>
         <meta
           name="description"
           content="Trang đăng nhập / đăng ký."
@@ -44,7 +59,7 @@ const LoginRegister = ({ location, login, register, userLogin, history}) => {
       <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
         Đăng Nhập Đăng Ký
       </BreadcrumbsItem>
-      <Layout headerTop="visible">
+      <Layout headerTop="invisible">
         {/* breadcrumb */}
         <Breadcrumb />
         <div className="login-register-area pt-100 pb-100">
@@ -69,6 +84,8 @@ const LoginRegister = ({ location, login, register, userLogin, history}) => {
                       <Tab.Pane eventKey="login" >
                         <div className="login-form-container">
                           <div className="login-register-form">
+                           {errorLogin && <Message variant="danger">{errorLogin}</Message>}
+                           
                             <form onSubmit={submitHandler}>
                               <input
                                 type="text"
@@ -76,6 +93,7 @@ const LoginRegister = ({ location, login, register, userLogin, history}) => {
                                 placeholder="Username"
                                 value = {username}
                                 onChange={(e)=>setUsername(e.target.value)}
+                                required
                               />
                               <input
                                 type="password"
@@ -83,6 +101,7 @@ const LoginRegister = ({ location, login, register, userLogin, history}) => {
                                 placeholder="Password"
                                 value = {password}
                                 onChange={(e)=>setPassword(e.target.value)}
+                                required
                               />
                               <div className="button-box">
                                 <div className="login-toggle-btn">
@@ -103,13 +122,16 @@ const LoginRegister = ({ location, login, register, userLogin, history}) => {
                       <Tab.Pane eventKey="register">
                         <div className="login-form-container">
                           <div className="login-register-form">
-                            <form>
+                          {errorRegister && <Message variant="danger">{errorRegister}</Message>}
+                          {successRegister && <Message>{successRegister}</Message>}
+                            <form onSubmit={submitRegisterHandler}>
                               <input
                                 type="text"
                                 name="user-name"
                                 placeholder="Username"
                                 value = {username}
                                 onChange={(e)=>setUsername(e.target.value)}
+                                required
                               />
                               <input
                                 type="password"
@@ -117,6 +139,7 @@ const LoginRegister = ({ location, login, register, userLogin, history}) => {
                                 placeholder="Password"
                                 value = {password}
                                 onChange={(e)=>setPassword(e.target.value)}
+                                required
                               />
                               <input
                                 name="user-email"
@@ -124,9 +147,10 @@ const LoginRegister = ({ location, login, register, userLogin, history}) => {
                                 type="email"
                                 value = {email}
                                 onChange={(e)=>setEmail(e.target.value)}
+                                required
                               />
                               <div className="button-box">
-                                <button type="submit" onClick={() => register(username, password, email)}>
+                                <button type="submit" >
                                   <span>Đăng ký</span>
                                 </button>
                               </div>
@@ -152,11 +176,14 @@ LoginRegister.propTypes = {
   username: PropTypes.string,
   password: PropTypes.string,
   email: PropTypes.string,
-  userLogin: PropTypes.object
+  userLogin: PropTypes.object,
+  error: PropTypes.string
 };
 const mapStateToProps = state => {
   return {
-    userLogin: state.loginData.users
+    userLogin: state.loginData.users,
+    errorLogin: state.loginData.error,
+    errorRegister: state.registerData.error
   };
 };
 const mapDispatchToProps = dispatch => {

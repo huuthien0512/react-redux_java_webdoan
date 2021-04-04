@@ -36,7 +36,7 @@ const Compare = ({
       <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
         So Sánh
       </BreadcrumbsItem>
-      <Layout headerTop="visible">
+      <Layout headerTop="invisible">
         {/* breadcrumb */}
         <Breadcrumb />
         <div className="compare-main-area pt-90 pb-100">
@@ -108,7 +108,7 @@ const Compare = ({
                                       <Link
                                         to={`${process.env.PUBLIC_URL}/product/${compareItem.id}`}
                                       >
-                                        Select Option
+                                        Chọn Sản Phẩm
                                       </Link>
                                     ) : compareItem.qty &&
                                       compareItem.qty > 0 ? (
@@ -128,18 +128,18 @@ const Compare = ({
                                         }
                                         title={
                                           compareItem !== undefined
-                                            ? "Added to cart"
-                                            : "Add to cart"
+                                            ? "Đã thêm vào cart"
+                                            : "Thêm vào cart"
                                         }
                                       >
                                         {cartItem !== undefined &&
                                         cartItem.quantity > 0
                                           ? "Added"
-                                          : "Add to cart"}
+                                          : "Thêm vào cart"}
                                       </button>
                                     ) : (
                                       <button disabled className="active">
-                                        Out of Stock
+                                        Hết hàng
                                       </button>
                                     )}
                                   </div>
@@ -220,7 +220,7 @@ const Compare = ({
                       <i className="pe-7s-shuffle"></i>
                     </div>
                     <div className="item-empty-area__text">
-                      No items found in compare <br />{" "}
+                      Không có sản phẩm trong compare <br />{" "}
                       <Link to={process.env.PUBLIC_URL + "/shop"}>
                         Thêm Sản Phẩm
                       </Link>

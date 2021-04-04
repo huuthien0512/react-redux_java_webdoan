@@ -22,6 +22,7 @@ const Cart = lazy(() => import("./pages/Cart"));
 const Wishlist = lazy(() => import("./pages/Wishlist"));
 const Compare = lazy(() => import("./pages/Compare"));
 const Checkout = lazy(() => import("./pages/Checkout"));
+const Paypal = lazy(() => import("./pages/Paypal"));
 
 const NotFound = lazy(() => import("./pages/NotFound"));
 
@@ -115,6 +116,10 @@ const App = ({userLogin}) => {
                 <Route
                   path={process.env.PUBLIC_URL + "/checkout"}
                   component={Checkout}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/paypal"}
+                  component={Paypal}
                 />
 
                 <Route

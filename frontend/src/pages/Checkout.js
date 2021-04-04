@@ -9,12 +9,56 @@ import Layout from "../layouts/Layout";
 import Breadcrumb from "../wrappers/breadcrumb/Breadcrumb";
 import { Button, Form, Row, Col } from 'react-bootstrap';
 import { savePayment } from '../redux/actions/cartActions';
+import { createOrder } from "../redux/actions/orderActions";
 
-const Checkout = ({ location, cartItems, currency, savePayment}) => {
+const Checkout = ({ location, cartItems, currency, history, cartData, createOrder}) => {
   const { pathname } = location;
   let cartTotalPrice = 0;
   //const [payment, setPayment] = useState('Paypal');
 
+  const [firstname, setFirstname] = useState('');
+  const [lastname, setLastname] = useState('');
+  const [email, setEmail] = useState('');
+  const [address, setAddress] = useState('');
+  const [district, setDistrict] = useState('');
+  const [city, setCity] = useState('');
+  const [telephone, setTelephone] = useState('');
+  const [note, setNote] = useState('');
+
+  const clickHandle= (e) =>{
+    
+      const shippingAddress={
+        address:address,
+        district:district,
+        city:city,
+      }
+      // const OrderItems={
+      //   // cartData.map(=)
+      //    name:cartData.description[0],
+      //   // qty:cartData.qty,
+      //   // image:cartData.image,
+      //   // price:cartData.price,
+      //   // product:cartData.product,
+      // }
+      const order={
+        orderItems:cartData.map(cart =>{
+        const container = {};
+        container.name = cart.name;
+        container.quantity = cart.quantity;
+        container.image = cart.image;
+        container.price = cart.price;
+        return container;
+        }),
+        shippingPrice:0,
+        paymentMethod:"Paypal",
+        totalPrice:5,
+        shippingAddress:shippingAddress,
+        note:note
+      }
+    
+    createOrder(order);
+    history.push('/paypal')
+  }
   return (
     <Fragment>
       <MetaTags>
@@ -28,7 +72,7 @@ const Checkout = ({ location, cartItems, currency, savePayment}) => {
       <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
         Thanh Toán
       </BreadcrumbsItem>
-      <Layout headerTop="visible">
+      <Layout headerTop="invisible">
         {/* breadcrumb */}
         <Breadcrumb />
         <div className="checkout-area pt-95 pb-100">
@@ -42,43 +86,64 @@ const Checkout = ({ location, cartItems, currency, savePayment}) => {
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
                           <label>Họ Và Tên Đệm</label>
-                          <input type="text" required />
+                          <input type="text"
+                          value={firstname}
+                          onChange={(e)=>setFirstname(e.target.value)}
+                          required />
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
                           <label>Tên</label>
-                          <input type="text" required/>
+                          <input type="text"
+                          value={lastname}
+                          onChange={(e)=>setLastname(e.target.value)}
+                          required/>
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
                           <label>Email</label>
-                          <input type="text" required/>
+                          <input type="text"
+                          value={email}
+                          onChange={(e)=>setEmail(e.target.value)}
+                          required/>
                         </div>
                       </div>
                       <div className="col-lg-12">
                         <div className="billing-info mb-20">
                           <label>Địa Chỉ</label>
-                          <input type="text" required/>
+                          <input type="text"
+                          value={address}
+                          onChange={(e)=>setAddress(e.target.value)}
+                          required/>
                         </div>
                       </div>
                       <div className="col-lg-12">
                         <div className="billing-info mb-20">
                           <label>Quận / Huyện</label>
-                          <input type="text" required/>
+                          <input type="text"
+                          value={district}
+                          onChange={(e)=>setDistrict(e.target.value)}
+                          required/>
                         </div>
                       </div>
                       <div className="col-lg-12">
                         <div className="billing-info mb-20">
                           <label>Thành Phố</label>
-                          <input type="text" required/>
+                          <input type="text"
+                          value={city}
+                          onChange={(e)=>setCity(e.target.value)}
+                          required/>
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
                           <label>Số Điện Thoại</label>
-                          <input type="text" required/>
+                          <input type="text"
+                          value={telephone}
+                          onChange={(e)=>setTelephone(e.target.value)}
+                          required/>
                         </div>
                       </div>
                     </div>
@@ -91,6 +156,8 @@ const Checkout = ({ location, cartItems, currency, savePayment}) => {
                           placeholder="Lời nhắn mong muốn"
                           name="message"
                           defaultValue={""}
+                          value={note}
+                          onChange={(e)=>setNote(e.target.value)}
                         />
                       </div>
                     </div>
@@ -193,7 +260,7 @@ const Checkout = ({ location, cartItems, currency, savePayment}) => {
                       </div>
                     </div>
                     <div className="place-order mt-25">
-                      <button className="btn-hover">Đặt Hàng</button>
+                      <button className="btn-hover" onClick={clickHandle}>Đặt Hàng</button>
                     </div>
                   </div>
                 </div>
@@ -231,13 +298,17 @@ Checkout.propTypes = {
 const mapStateToProps = state => {
   return {
     cartItems: state.cartData,
-    currency: state.currencyData
+    currency: state.currencyData,
+    cartData: state.cartData
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
     savePayment: (payment) => {
       dispatch(savePayment(payment));
+    },
+    createOrder: (order) => {
+      dispatch(createOrder(order));
     }
   };
 };

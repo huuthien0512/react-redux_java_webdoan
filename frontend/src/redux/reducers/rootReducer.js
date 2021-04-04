@@ -1,6 +1,6 @@
-import {userReducer, userDetails, listUsers, userDelete} from "./userReducer";
+import {userReducer, userRegister, userDetails, listUsers, userDelete} from "./userReducer";
 import currencyReducer from "./currencyReducer";
-import productReducer from "./productReducer";
+import {productReducer, productSearch} from "./productReducer";
 import blogReducer from "./blogReducer";
 import cartReducer from "./cartReducer";
 import wishlistReducer from "./wishlistReducer";
@@ -13,11 +13,13 @@ const rootReducer = combineReducers({
   multilanguage: createMultilanguageReducer({ currentLanguageCode: "en" }),
   ...reducers,
   loginData: userReducer,
+  registerData: userRegister,
   listUsersData:listUsers,
   userData: userDetails,
   userDeleteData: userDelete,
   currencyData: currencyReducer,
   productData: productReducer,
+  searchedProductData: productSearch,
   blogData: blogReducer,
   cartData: cartReducer,
   wishlistData: wishlistReducer,

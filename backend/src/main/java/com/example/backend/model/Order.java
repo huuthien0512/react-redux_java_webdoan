@@ -19,6 +19,7 @@ public class Order {
 	private Date paidAt= new Date();
 	private boolean isDelivered;
 	private Date deliveredAt= new Date();
+	private String note;
 	private String userId;
 	public Order() {
 		super();
@@ -26,7 +27,7 @@ public class Order {
 	}
 	public Order(OrderItems[] orderItems, ShippingAddress shippingAddress, String paymentMethod,
 			PaymentResult paymentResult, float shippingPrice, float totalPrice, boolean isPaid, Date paidAt,
-			boolean isDelivered, Date deliveredAt, String userId) {
+			boolean isDelivered, Date deliveredAt, String note, String userId) {
 		super();
 		this.orderItems = orderItems;
 		this.shippingAddress = shippingAddress;
@@ -38,6 +39,7 @@ public class Order {
 		this.paidAt = paidAt;
 		this.isDelivered = isDelivered;
 		this.deliveredAt = deliveredAt;
+		this.note = note;
 		this.userId = userId;
 	}
 	public String getId() {
@@ -99,6 +101,12 @@ public class Order {
 	}
 	public Date getDeliveredAt() {
 		return deliveredAt;
+	}
+	public void setNote(String note) {
+		this.note = note;
+	}
+	public String getNote() {
+		return note;
 	}
 	public void setDeliveredAt(Date deliveredAt) {
 		this.deliveredAt = deliveredAt;

@@ -6,13 +6,12 @@ import {
 import ShopSearch from "../../components/product/ShopSearch";
 import ShopCategories from "../../components/product/ShopCategories";
 
-const ShopSidebar = ({ products, getSortParams, sideSpaceClass }) => {
+const ShopSidebar = ({ products, getSortParams, sideSpaceClass, getSearchProducts }) => {
   const uniqueCategories = getIndividualCategories(products);
-
   return (
     <div className={`sidebar-style ${sideSpaceClass ? sideSpaceClass : ""}`}>
       {/* shop search */}
-      <ShopSearch />
+      <ShopSearch getSearchProducts={getSearchProducts} />
 
       {/* filter by categories */}
       <ShopCategories

@@ -1,11 +1,11 @@
 export const ADD_TO_COMPARE = "ADD_TO_COMPARE";
 export const DELETE_FROM_COMPARE = "DELETE_FROM_COMPARE";
 
-// add to compare
+// Thêm vào compare
 export const addToCompare = (item, addToast) => {
   return dispatch => {
     if (addToast) {
-      addToast("Added To Compare", {
+      addToast("Đã thêm vào Compare", {
         appearance: "success",
         autoDismiss: true
       });
