@@ -11,7 +11,7 @@ function Paypal() {
       purchase_units: [
         {
           amount: {
-            value: totalPrice,
+            value: localStorage.getItem('totalPrice'),
           },
         },
       ],

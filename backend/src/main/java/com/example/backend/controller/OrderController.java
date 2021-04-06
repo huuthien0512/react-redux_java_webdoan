@@ -18,8 +18,7 @@ import com.example.backend.model.Order;
 import com.example.backend.repository.OrderRepository;
 
 @RestController
-//@CrossOrigin(origins = "http://localhost:3000")
-@CrossOrigin(origins = "https://h2othefood.netlify.app")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class OrderController {
 	
 	@Autowired
@@ -33,7 +32,6 @@ public class OrderController {
 	public String createOrder(@RequestBody Order order) {
 		//System.out.print(order);
 		Order insertedOrder = orderRepository.insert(order);
-		System.out.print(insertedOrder.getUserId());
 		return "OK";
 	}
 	@PutMapping(value = "/order/update")

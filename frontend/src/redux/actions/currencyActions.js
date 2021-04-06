@@ -4,7 +4,7 @@ export const SET_CURRENCY = "SET_CURRENCY";
 export const setCurrency = currencyName => {
   return dispatch => {
     axios
-      .get(`https://api.exchangeratesapi.io/latest?base=VND`)
+      .get(`http://api.exchangeratesapi.io/v1/latest?access_key=ef5b3a0ff2a0baecb80e7b2100d4a0a0`)
       .then(response => {
         const rates = response.data.rates;
         let currencyRate = 0;

@@ -25,8 +25,7 @@ import com.example.backend.repository.ProductRepository;
 import com.example.backend.repository.UserRepository;
 
 @RestController
-//@CrossOrigin(origins = "http://localhost:3000")
-@CrossOrigin(origins = "https://h2othefood.netlify.app")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UserController {
 	
 	@Autowired
@@ -37,7 +36,6 @@ public class UserController {
 		return userRepository.findAll();
 	}
 	
-	@CrossOrigin(origins = "https://h2othefood.netlify.app")
 	@PostMapping(value = "/user/login")
 	ResponseEntity<User> login(@RequestBody User user){
 		List <User> listUsers = userRepository.findAll();

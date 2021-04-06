@@ -308,7 +308,8 @@ const Cart = ({
                           {cartTotalPrice.toFixed(2)*1000 + " " + currency.currencySymbol}
                         </span>
                       </h4>
-                      <Link to={process.env.PUBLIC_URL + "/checkout"}>
+                      
+                      <Link to={process.env.PUBLIC_URL + "/checkout"} >
                         Tiến Hành Thanh Toán
                       </Link>
                     </div>

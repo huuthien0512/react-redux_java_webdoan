@@ -22,8 +22,7 @@ import com.example.backend.repository.BlogRepository;
 import com.example.backend.repository.ProductRepository;
 
 @RestController
-//@CrossOrigin(origins = "http://localhost:3000")
-@CrossOrigin(origins = "https://h2othefood.netlify.app")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class BlogController {
 	
 	@Autowired

@@ -29,6 +29,13 @@ const Checkout = ({ location, cartItems, currency, history, cartData, createOrde
       history.push('/login-register');
     }
   }, [userLogin, history]);
+  var i, total = 0;
+  for(i=0; i < cartData.length; i++){
+    var t = cartData[i].price*cartData[i].quantity;
+    total += (t-(t*cartData[i].discount/100));
+  }
+  total = (total/23).toFixed(2);
+  localStorage.setItem('totalPrice', total);
   const clickHandle= (e) =>{
       const shippingAddress={
         address:address,
@@ -61,7 +68,7 @@ const Checkout = ({ location, cartItems, currency, history, cartData, createOrde
       }
     
     createOrder(order);
-    localStorage.setItem('totalPrice', JSON.stringify(5));
+    
     history.push('/paypal')
   }
   return (
@@ -215,6 +222,7 @@ const Checkout = ({ location, cartItems, currency, history, cartData, createOrde
                                         finalProductPrice * cartItem.quantity
                                       ).toFixed(2)*1000 + " " + currency.currencySymbol
                                         }
+                                   
                                   </span>
                                 </li>
                               );
