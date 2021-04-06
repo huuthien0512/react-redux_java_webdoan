@@ -5,19 +5,13 @@ import {
   DELETE_FROM_CART,
   DELETE_ALL_FROM_CART,
 } from "../actions/cartActions";
-import {CART_SAVE_METHOD} from "../constants/cartConstants"
+import {CART_SAVE_METHOD, CART_ADD_ITEM} from "../constants/cartConstants"
 const initState = [];
 
 const cartReducer = (state = initState, action) => {
   const cartItems = state,
     product = action.payload;
-    if (action.type === CART_SAVE_METHOD){
-      return {
-        ...state,
-        payment:action.payload
-      }
-    }
-  if (action.type === ADD_TO_CART) {
+  if (action.type === CART_ADD_ITEM) {
     // for non variant products
     if (product.variation === undefined) {
       const cartItem = cartItems.filter(item => item.id === product.id)[0];

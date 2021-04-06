@@ -65,7 +65,7 @@ export const login = (username, password) => async(dispatch) => {
       type: USER_LOGIN_SUCCESS,
       payload: data,
     });
-    localStorage.setItem('users', JSON.stringify(data));
+    localStorage.setItem('userInfo', JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: USER_LOGIN_FAIL,
@@ -123,7 +123,7 @@ export const updateProfile=(newInfo, userLogin)=>async (dispatch)=>{
     
     const {data}= await axios.put( `${BASE_URL}/user/update/${userLogin.id}`, newInfo)
     dispatch({type:USER_UPDATE_PROFILE_SUCCESS})
-    localStorage.setItem('users', JSON.stringify(data));
+    localStorage.setItem('userInfo', JSON.stringify(data));
   } catch (error) {
     dispatch({type:USER_UPDATE_PROFILE_FAIL,payload:error.response && error.response.data.msg})
   }
@@ -148,7 +148,7 @@ export const updatePassword=(newInfoPassword, userLogin)=>async (dispatch)=>{
   }
 }
 export const logout = () => async (dispatch) => {
-  localStorage.removeItem('users');
+  localStorage.removeItem('userInfo');
   dispatch({
     type: USER_LOGOUT,
   });

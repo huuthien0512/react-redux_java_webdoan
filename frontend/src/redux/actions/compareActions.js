@@ -2,8 +2,7 @@ export const ADD_TO_COMPARE = "ADD_TO_COMPARE";
 export const DELETE_FROM_COMPARE = "DELETE_FROM_COMPARE";
 
 // Thêm vào compare
-export const addToCompare = (item, addToast) => {
-  return dispatch => {
+export const addToCompare = (item, addToast) => async (dispatch,getState)=> {
     if (addToast) {
       addToast("Đã thêm vào Compare", {
         appearance: "success",
@@ -11,8 +10,7 @@ export const addToCompare = (item, addToast) => {
       });
     }
     dispatch({ type: ADD_TO_COMPARE, payload: item });
-   // localStorage.setItem('compareItems', JSON.stringify(item));
-  };
+    localStorage.setItem('compareItems', JSON.stringify(getState().compareData));
 };
 
 // delete from compare

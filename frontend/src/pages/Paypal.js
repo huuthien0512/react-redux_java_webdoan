@@ -1,15 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom"
+import { connect } from "react-redux";
 
 const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 
 function Paypal() {
+  const totalPrice = localStorage.getItem('totalPrice');
   const createOrder = (data, actions) =>{
     return actions.order.create({
       purchase_units: [
         {
           amount: {
-            value: "0.01",
+            value: totalPrice,
           },
         },
       ],
@@ -27,5 +29,9 @@ function Paypal() {
     />
   );
 }
-
-export default Paypal;
+const mapStateToProps = state => {
+  return {
+    orderInfo: state.orderData.orders,
+  };
+};
+export default connect(mapStateToProps)(Paypal);

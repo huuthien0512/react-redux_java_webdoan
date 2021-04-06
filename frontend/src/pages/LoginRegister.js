@@ -181,7 +181,7 @@ LoginRegister.propTypes = {
 };
 const mapStateToProps = state => {
   return {
-    userLogin: state.loginData.users,
+    userLogin: state.loginData.userInfo,
     errorLogin: state.loginData.error,
     errorRegister: state.registerData.error
   };

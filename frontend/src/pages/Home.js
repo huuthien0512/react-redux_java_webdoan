@@ -5,6 +5,7 @@ import HeroSlider from "../wrappers/hero-slider/HeroSlider";
 import FeatureIcon from "../wrappers/feature-icon/FeatureIcon";
 import TabProduct from "../wrappers/product/TabProduct";
 import BlogFeatured from "../wrappers/blog-featured/BlogFeatured";
+import { useDispatch, useSelector } from 'react-redux';
 
 const Home = () => {
   return (

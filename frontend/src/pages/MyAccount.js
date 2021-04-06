@@ -203,7 +203,7 @@ const MyAccount = ({ history, location, userLogin, updateProfile, updatePassword
 
 const mapStateToProps = state => {
   return {
-    userLogin: state.loginData.users,
+    userLogin: state.loginData.userInfo,
   };
 };
 const mapDispatchToProps = dispatch => {

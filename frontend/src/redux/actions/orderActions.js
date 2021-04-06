@@ -33,7 +33,6 @@ import {
     //       Authorization: userInfo.token,
     //     },
     //   };
-    console.log(order)
       const { data } = await axios.post(`${BASE_URL}/order/create`, order);
       dispatch({
         type: ORDER_CREATE_SUCCESS,
@@ -43,7 +42,7 @@ import {
       dispatch({
         type: ORDER_CREATE_FAIL,
         // payload:error.response && error.response.data.msg
-        payload: error.response && error.response.data.msg,
+        payload: error.response && error.response.data,
       });
     }
   };
@@ -102,15 +101,13 @@ import {
   export const getListOrder = () => async (dispatch, getState) => {
     try {
       dispatch({ type: ORDER_LIST_REQUEST });
-      const {
-        userLogin: { userInfo },
-      } = getState();
-      const config = {
-        headers: {
-          Authorization: userInfo.token,
-        },
-      };
-      const { data } = await axios.get(`/api/orders/my-order`, config);
+      const userLogin = getState().loginData.userInfo;
+      // const config = {
+      //   headers: {
+      //     Authorization: userInfo.token,
+      //   },
+      // };
+      const { data } = await axios.get(`${BASE_URL}/order/of/${userLogin.id}`);
       dispatch({
         type: ORDER_LIST_SUCCESS,
         payload: data,

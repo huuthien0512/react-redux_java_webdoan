@@ -18,14 +18,18 @@ import * as serviceWorker from "./serviceWorker";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { listUsers } from "./redux/actions/userActions";
 
-const userInfoFormLocalStore=localStorage.getItem('users')?JSON.parse(localStorage.getItem('users')):null
+const userInfoFormLocalStore=localStorage.getItem('userInfo')?JSON.parse(localStorage.getItem('userInfo')):null
 const cartItemsFormLocalStore=localStorage.getItem('cartItems')?JSON.parse(localStorage.getItem('cartItems')):[]
 const compareItemsFormLocalStore=localStorage.getItem('compareItems')?JSON.parse(localStorage.getItem('compareItems')):[]
+const wishlistItemsFormLocalStore=localStorage.getItem('wishlistItems')?JSON.parse(localStorage.getItem('wishlistItems')):[]
+
 const initialState={
-  loginData:{users:userInfoFormLocalStore},
-  //cartData:{cartItems:cartItemsFormLocalStore},
-  //compareData:{compartItems:compareItemsFormLocalStore}
+  loginData:{userInfo:userInfoFormLocalStore},
+  cartData:cartItemsFormLocalStore,
+  compareData:compareItemsFormLocalStore,
+  wishlistData:wishlistItemsFormLocalStore,
 }
+
 const store = createStore(
   rootReducer,
   // load(),

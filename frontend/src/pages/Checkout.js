@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { Fragment, useState  } from "react";
+import React, { Fragment, useState, useEffect  } from "react";
 import { Link } from "react-router-dom";
 import MetaTags from "react-meta-tags";
 import { connect } from "react-redux";
@@ -9,9 +9,9 @@ import Layout from "../layouts/Layout";
 import Breadcrumb from "../wrappers/breadcrumb/Breadcrumb";
 import { Button, Form, Row, Col } from 'react-bootstrap';
 import { savePayment } from '../redux/actions/cartActions';
-import { createOrder } from "../redux/actions/orderActions";
+import { createOrder, getListOrder } from "../redux/actions/orderActions";
 
-const Checkout = ({ location, cartItems, currency, history, cartData, createOrder}) => {
+const Checkout = ({ location, cartItems, currency, history, cartData, createOrder, userLogin}) => {
   const { pathname } = location;
   let cartTotalPrice = 0;
   //const [payment, setPayment] = useState('Paypal');
@@ -24,9 +24,12 @@ const Checkout = ({ location, cartItems, currency, history, cartData, createOrde
   const [city, setCity] = useState('');
   const [telephone, setTelephone] = useState('');
   const [note, setNote] = useState('');
-
+  useEffect(() => {
+    if (!userLogin) {
+      history.push('/login-register');
+    }
+  }, [userLogin, history]);
   const clickHandle= (e) =>{
-    
       const shippingAddress={
         address:address,
         district:district,
@@ -53,16 +56,18 @@ const Checkout = ({ location, cartItems, currency, history, cartData, createOrde
         paymentMethod:"Paypal",
         totalPrice:5,
         shippingAddress:shippingAddress,
+        userId:userLogin.id,
         note:note
       }
     
     createOrder(order);
+    localStorage.setItem('totalPrice', JSON.stringify(5));
     history.push('/paypal')
   }
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | Thanh Toán</title>
+        <title>H2O | Thanh Toán</title>
         <meta
           name="description"
           content="Checkout page of flone react minimalist eCommerce template."
@@ -299,7 +304,8 @@ const mapStateToProps = state => {
   return {
     cartItems: state.cartData,
     currency: state.currencyData,
-    cartData: state.cartData
+    cartData: state.cartData,
+    userLogin: state.loginData.userInfo
   };
 };
 const mapDispatchToProps = dispatch => {
@@ -309,7 +315,7 @@ const mapDispatchToProps = dispatch => {
     },
     createOrder: (order) => {
       dispatch(createOrder(order));
-    }
+    },
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

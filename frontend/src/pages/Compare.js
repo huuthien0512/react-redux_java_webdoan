@@ -22,11 +22,10 @@ const Compare = ({
 }) => {
   const { pathname } = location;
   const { addToast } = useToasts();
-
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | Compare</title>
+        <title>H2O | So sánh</title>
         <meta
           name="description"
           content="Compare page of flone react minimalist eCommerce template."
@@ -94,24 +93,8 @@ const Compare = ({
                                     </Link>
                                   </div>
                                   <div className="compare-btn">
-                                    {compareItem.affiliateLink ? (
-                                      <a
-                                        href={compareItem.affiliateLink}
-                                        rel="noopener noreferrer"
-                                        target="_blank"
-                                      >
-                                        {" "}
-                                        Buy now{" "}
-                                      </a>
-                                    ) : compareItem.variation &&
-                                      compareItem.variation.length >= 1 ? (
-                                      <Link
-                                        to={`${process.env.PUBLIC_URL}/product/${compareItem.id}`}
-                                      >
-                                        Chọn Sản Phẩm
-                                      </Link>
-                                    ) : compareItem.qty &&
-                                      compareItem.qty > 0 ? (
+                                    {compareItem.quantity &&
+                                      compareItem.quantity > 0 ? (
                                       <button
                                         onClick={() =>
                                           addToCart(compareItem, addToast)

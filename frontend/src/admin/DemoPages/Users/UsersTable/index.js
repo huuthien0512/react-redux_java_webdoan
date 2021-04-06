@@ -56,7 +56,7 @@ const UsersTable = ({listUsers, successDelete, goDelete, deleteUser, loading }) 
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  {listUsers.map((user, key) => {
+                                  {listUsers && listUsers.map((user, key) => {
 
                                     return(
                                     <tr align="center" >

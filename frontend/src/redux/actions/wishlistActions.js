@@ -3,8 +3,8 @@ export const DELETE_FROM_WISHLIST = "DELETE_FROM_WISHLIST";
 export const DELETE_ALL_FROM_WISHLIST = "DELETE_ALL_FROM_WISHLIST";
 
 // Thêm vào wishlist
-export const addToWishlist = (item, addToast) => {
-  return dispatch => {
+export const addToWishlist = (item, addToast) => async (dispatch,getState)=>{
+
     if (addToast) {
       addToast("Đã thêm vào Wishlist", {
         appearance: "success",
@@ -12,7 +12,7 @@ export const addToWishlist = (item, addToast) => {
       });
     }
     dispatch({ type: ADD_TO_WISHLIST, payload: item });
-  };
+    localStorage.setItem('wishlistItems', JSON.stringify(getState().wishlistData));
 };
 
 // delete from wishlist

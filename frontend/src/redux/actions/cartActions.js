@@ -1,27 +1,26 @@
 import { CART_ADD_ITEM, CART_REMOVE_ITEM,CART_SAVE_ADDRESS,CART_SAVE_METHOD } from "../constants/cartConstants";
+import axios from "axios"
 export const ADD_TO_CART = "ADD_TO_CART";
 export const DECREASE_QUANTITY = "DECREASE_QUANTITY";
 export const DELETE_FROM_CART = "DELETE_FROM_CART";
 export const DELETE_ALL_FROM_CART = "DELETE_ALL_FROM_CART";
+  
+
 
 //Thêm vào cart
-export const addToCart = (
-  item,
-  addToast,
-  quantityCount
-) => {
-  return dispatch => {
+export const addToCart = (item, addToast, quantityCount) => async (dispatch,getState)=>{
+  
     if (addToast) {
       addToast("Đã thêm vào giỏ hàng", { appearance: "success", autoDismiss: true });
     }
     dispatch({
-      type: ADD_TO_CART,
+      type: CART_ADD_ITEM,
       payload: {
         ...item,
         quantity: quantityCount
       }
     });
-  };
+    localStorage.setItem('cartItems', JSON.stringify(getState().cartData));
 };
 //decrease from cart
 export const decreaseQuantity = (item, addToast) => {

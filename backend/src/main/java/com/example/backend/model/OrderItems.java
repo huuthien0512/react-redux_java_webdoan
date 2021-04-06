@@ -3,14 +3,14 @@ package com.example.backend.model;
 public class OrderItems {
 	private String name;
 	private int quantity;
-	private String image;
+	private String image[];
 	private float price;
 	
 	public OrderItems() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public OrderItems(String name, int quantity, String image, float price) {
+	public OrderItems(String name, int quantity, String[] image, float price) {
 		super();
 		this.name = name;
 		this.quantity = quantity;
@@ -29,10 +29,10 @@ public class OrderItems {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	public String getImage() {
+	public String[] getImage() {
 		return image;
 	}
-	public void setImage(String image) {
+	public void setImage(String[] image) {
 		this.image = image;
 	}
 	public float getPrice() {

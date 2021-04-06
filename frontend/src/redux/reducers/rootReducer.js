@@ -5,6 +5,7 @@ import blogReducer from "./blogReducer";
 import cartReducer from "./cartReducer";
 import wishlistReducer from "./wishlistReducer";
 import compareReducer from "./compareReducer";
+import {orderList} from "./orderReducer";
 import { combineReducers } from "redux";
 import { createMultilanguageReducer } from "redux-multilanguage";
 import reducers from "../../admin/reducers"
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
   searchedProductData: productSearch,
   blogData: blogReducer,
   cartData: cartReducer,
+  orderData: orderList,
   wishlistData: wishlistReducer,
   compareData: compareReducer
 });

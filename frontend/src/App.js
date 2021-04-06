@@ -143,7 +143,7 @@ App.propTypes = {
 };
 const mapStateToProps = state => {
   return {
-    userLogin: state.loginData.users,
+    userLogin: state.loginData.userInfo,
   };
 };
 export default connect(mapStateToProps)(multilanguage(App));

@@ -1,7 +1,7 @@
 {
   "name": "flone-react",
   "version": "1.5.0",
-  "private": false,
+  "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.3",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
@@ -44,7 +44,7 @@
     "react-responsive-tabs": "^4.4.0",
     "react-router-bootstrap": "^0.25.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.2.0",
+    "react-scripts": "^4.0.3",
     "react-scroll": "^1.7.14",
     "react-simple-maps": "^2.3.0",
     "react-sticky-el": "^1.1.0",
@@ -84,7 +84,8 @@
     ]
   },
   "devDependencies": {
-    "node-sass": "^4.13.0",
-    "redux-devtools-extension": "^2.13.8"
+    "node-sass": "^4.14.1",
+    "redux-devtools-extension": "^2.13.8",
+    "sass": "^1.32.8"
   }
 }

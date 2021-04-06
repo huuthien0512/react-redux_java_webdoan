@@ -144,7 +144,7 @@ const mapStateToProps = state => {
     cartData: state.cartData,
     wishlistData: state.wishlistData,
     compareData: state.compareData,
-    userLogin: state.loginData.users
+    userLogin: state.loginData.userInfo
   };
 };
 

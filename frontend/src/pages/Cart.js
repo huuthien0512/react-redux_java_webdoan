@@ -29,11 +29,10 @@ const Cart = ({
   const { addToast } = useToasts();
   const { pathname } = location;
   let cartTotalPrice = 0;
-
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | Cart</title>
+        <title>H2O | Giỏ Hàng</title>
         <meta
           name="description"
           content="Cart page of flone react minimalist eCommerce template."
