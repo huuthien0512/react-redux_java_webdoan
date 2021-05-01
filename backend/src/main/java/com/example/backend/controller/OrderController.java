@@ -72,32 +72,31 @@ public class OrderController {
 	}
 	
 	//update order
-		@PutMapping(value = "/order/admin/update/{id}")
-		public ResponseEntity<Order> updateProduct(@PathVariable("id") String id, @RequestBody Map<String, Object> payload) {
-			if(checkAdmin(payload.get("idCurrent").toString()) == true) {
-				List<Order> listOrders = orderRepository.findAll();
-				for(int i=0; i<listOrders.size(); i++)
-					if (listOrders.get(i).getId().equals(id)) {
-						
-						listOrders.get(i).getPaymentResult().setStatus(payload.get("status").toString());
-						if (payload.get("status").toString().equals("Chưa thanh toán")) {
-							listOrders.get(i).setIsPaid(false);
-							listOrders.get(i).setPaidAt(null);
-							listOrders.get(i).setIsDelivered(false);
-							listOrders.get(i).setDeliveredAt(null);
-						}
-						else if (payload.get("status").toString().equals("Đã thanh toán") || payload.get("status").toString().equals("Đang giao")) {
-							listOrders.get(i).setIsPaid(true);
-							listOrders.get(i).setPaidAt(new Date());
-							listOrders.get(i).setIsDelivered(false);
-							listOrders.get(i).setDeliveredAt(null);
-						}else if (payload.get("status").toString().equals("Đã giao")) {
-							listOrders.get(i).setIsPaid(true);
-							listOrders.get(i).setPaidAt(new Date());
+	@PutMapping(value = "/order/admin/update/{id}")
+	public ResponseEntity<Order> updateProduct(@PathVariable("id") String id, @RequestBody Map<String, Object> payload) {
+		if(checkAdmin(payload.get("idCurrent").toString()) == true) {
+			List<Order> listOrders = orderRepository.findAll();
+			for(int i=0; i<listOrders.size(); i++)
+				if (listOrders.get(i).getId().equals(id)) {
+					listOrders.get(i).getPaymentResult().setStatus(payload.get("status").toString());
+					if (payload.get("status").toString().equals("Chưa thanh toán")) {
+						listOrders.get(i).setIsPaid(false);
+						listOrders.get(i).setPaidAt(null);
+						listOrders.get(i).setIsDelivered(false);
+						listOrders.get(i).setDeliveredAt(null);
+					}
+					else if (payload.get("status").toString().equals("Đã thanh toán") || payload.get("status").toString().equals("Đang giao")) {
+						listOrders.get(i).setIsPaid(true);
+						listOrders.get(i).setPaidAt(new Date());
+						listOrders.get(i).setIsDelivered(false);
+						listOrders.get(i).setDeliveredAt(null);
+					}else if (payload.get("status").toString().equals("Đã giao")) {
+						listOrders.get(i).setIsPaid(true);
+						listOrders.get(i).setPaidAt(new Date());
 
-							listOrders.get(i).setIsDelivered(true);
-							listOrders.get(i).setDeliveredAt(new Date());
-						}
+						listOrders.get(i).setIsDelivered(true);
+						listOrders.get(i).setDeliveredAt(new Date());
+					}
 						listOrders.get(i).getPaymentResult().setUpdateTime(new Date());
 						listOrders.get(i).getPaymentResult().setUserUpdate(payload.get("idCurrent").toString());
 						orderRepository.saveAll(listOrders);

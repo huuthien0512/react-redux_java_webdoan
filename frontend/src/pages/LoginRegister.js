@@ -8,21 +8,21 @@ import Nav from "react-bootstrap/Nav";
 import Layout from "../layouts/Layout";
 import Breadcrumb from "../wrappers/breadcrumb/Breadcrumb";
 import {login, register} from '../redux/actions/userActions';
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import Message from '../components/Message';
+import {USER_REGISTER_REQUEST} from '../redux/constants/userConstants';
 
-const LoginRegister = ({ location, login, register, userLogin, history, errorLogin, errorRegister, successRegister, messageRegister}) => {
+const LoginRegister = ({match, location, login, register, userLogin, history, messageLogin, successLogin, errorRegister, successRegister, messageRegister}) => {
 
-  
+  const tab = match.params.tab
   const { pathname } = location;
-
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  
+  const dispatch = useDispatch();
   useEffect(()=>{
     if(userLogin){
-      history.push('/')
+     // history.push('/')
     }
     
   },[history, userLogin]);
@@ -41,9 +41,9 @@ const LoginRegister = ({ location, login, register, userLogin, history, errorLog
       email:email
     }
     register(newUserInfo)
-    if (!errorRegister && successRegister){
-      history.push('/login-register')
-    }
+    // if (!errorRegister && successRegister){
+    //   history.push('/login-register')
+    // }
 }
 
   return (
@@ -68,15 +68,15 @@ const LoginRegister = ({ location, login, register, userLogin, history, errorLog
             <div className="row">
               <div className="col-lg-7 col-md-12 ml-auto mr-auto">
                 <div className="login-register-wrapper">
-                  <Tab.Container defaultActiveKey="login">
+                  <Tab.Container defaultActiveKey={tab && tab == 1 ? "login":"register"}>
                     <Nav variant="pills" className="login-register-tab-list">
                       <Nav.Item>
-                        <Nav.Link eventKey="login">
+                        <Nav.Link eventKey="login" id="dangnhap">
                           <h4>Đăng nhập</h4>
                         </Nav.Link>
                       </Nav.Item>
                       <Nav.Item>
-                        <Nav.Link eventKey="register">
+                        <Nav.Link eventKey="register" id="dangky">
                           <h4>Đăng ký</h4>
                         </Nav.Link>
                       </Nav.Item>
@@ -85,24 +85,26 @@ const LoginRegister = ({ location, login, register, userLogin, history, errorLog
                       <Tab.Pane eventKey="login" >
                         <div className="login-form-container">
                           <div className="login-register-form">
-                           {errorLogin && <Message variant="danger">{errorLogin}</Message>}
-                           
+                           {messageLogin && successLogin == true ? <span id = "messageLogin"><Message >{messageLogin}</Message></span>:
+                           messageLogin? <span id = "messageLogin"><Message variant="danger">{messageLogin}</Message></span>:""}
                             <form onSubmit={submitHandler}>
                               <input
+                                id="username-login"
                                 type="text"
                                 name="username"
                                 placeholder="Username"
                                 value = {username}
                                 onChange={(e)=>setUsername(e.target.value)}
-                                required
+                               // required
                               />
                               <input
+                              id="password-login"
                                 type="password"
                                 name="user-password"
                                 placeholder="Password"
                                 value = {password}
                                 onChange={(e)=>setPassword(e.target.value)}
-                                required
+                             //   required
                               />
                               <div className="button-box">
                                 <div className="login-toggle-btn">
@@ -112,7 +114,7 @@ const LoginRegister = ({ location, login, register, userLogin, history, errorLog
                                     Quên mật khẩu?
                                   </Link>
                                 </div>
-                                <button type="submit">
+                                <button type="submit" id="btndangnhap">
                                   <span>Đăng nhập</span>
                                 </button>
                               </div>
@@ -123,35 +125,35 @@ const LoginRegister = ({ location, login, register, userLogin, history, errorLog
                       <Tab.Pane eventKey="register">
                         <div className="login-form-container">
                           <div className="login-register-form">
-                          {errorRegister && <Message variant="danger">{errorRegister}</Message>}
-                          {messageRegister && <Message>{messageRegister}</Message>}
+                          {messageRegister && successRegister == true ? <span id = "messageRegister"><Message >{messageRegister}</Message></span>:
+                           messageRegister? <span id = "messageRegister"><Message variant="danger">{messageRegister}</Message></span>:""}
                             <form onSubmit={submitRegisterHandler}>
                               <input
                                 type="text"
+                                id ="username-register"
                                 name="user-name"
                                 placeholder="Username"
                                 value = {username}
                                 onChange={(e)=>setUsername(e.target.value)}
-                                required
                               />
                               <input
+                               id ="password-register"
                                 type="password"
                                 name="user-password"
                                 placeholder="Password"
                                 value = {password}
                                 onChange={(e)=>setPassword(e.target.value)}
-                                required
                               />
                               <input
+                                id="email-register"
                                 name="user-email"
                                 placeholder="Email"
                                 type="email"
                                 value = {email}
                                 onChange={(e)=>setEmail(e.target.value)}
-                                required
                               />
                               <div className="button-box">
-                                <button type="submit" >
+                                <button type="submit" id="btndangky">
                                   <span>Đăng ký</span>
                                 </button>
                               </div>
@@ -183,7 +185,8 @@ LoginRegister.propTypes = {
 const mapStateToProps = state => {
   return {
     userLogin: state.loginData.userInfo,
-    errorLogin: state.loginData.error,
+    messageLogin: state.loginData.message,
+    successLogin: state.loginData.success,
     errorRegister: state.registerData.error,
     successRegister: state.registerData.success,
     messageRegister: state.registerData.message,

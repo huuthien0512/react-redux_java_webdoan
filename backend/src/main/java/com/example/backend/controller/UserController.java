@@ -1,9 +1,11 @@
 package com.example.backend.controller;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -40,21 +42,74 @@ public class UserController {
 	
 	//Đăng nhập
 	@PostMapping(value = "/user/login")
-	public ResponseEntity<User> login(@RequestBody User user){
-		List <User> listUsers = userRepository.findAll();
-		for(int i=0; i<listUsers.size(); i++)
-			if(listUsers.get(i).getUsername().equals(user.getUsername()) && listUsers.get(i).getPassword().equals(user.getPassword()))
-				return ResponseEntity.status(200).body(listUsers.get(i));
-		return ResponseEntity.status(400).body(null);
+	public ResponseEntity<Map<String, Object> > login(@RequestBody User user){
+		int fl = 0;
+		Map<String, Object> payload = new HashMap<String, Object>();
+		String msg = null;
+		if (user.getUsername() == ""){
+			msg = "Tài khoản không được để trống";
+		}else if (user.getPassword() == " "){
+			msg = "Mật khẩu không được để trống";
+		}else {
+			List <User> listUsers = userRepository.findAll();
+			for(int i=0; i<listUsers.size(); i++)
+			{
+				if(listUsers.get(i).getUsername().equals(user.getUsername())) {
+					fl = 1;
+					if (listUsers.get(i).getPassword().equals(user.getPassword())) {
+						payload.put("id", listUsers.get(i).getId());
+						payload.put("username", listUsers.get(i).getUsername());
+						payload.put("email", listUsers.get(i).getEmail());
+						payload.put("msg", "Đăng nhập thành công");
+						return ResponseEntity.status(200).body(payload);
+					}
+					
+				};
+			}
+		}
+		if (msg != null)
+			payload.put("msg", msg);
+		else
+		{
+			if (fl == 0)
+				payload.put("msg", "Tài khoản không tồn tại");
+			else
+				payload.put("msg", "Sai mật khẩu");
+		}
+		return ResponseEntity.status(400).body(payload);
 	}
 	
 	//Đăng ký
 	@PostMapping(value = "/user/register")
 	public ResponseEntity<String> createUser(@RequestBody User user) {
+		
+		Pattern specailCharPatten = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
+	    Pattern UpperCasePatten = Pattern.compile("[A-Z ]");
+	    Pattern lowerCasePatten = Pattern.compile("[a-z ]");
+	    Pattern digitCasePatten = Pattern.compile("[0-9 ]");
+	    
+		if (user.getUsername() == ""){
+			return ResponseEntity.status(400).body("Tài khoản không được để trống");
+		}else if (user.getPassword() == " "){
+			return ResponseEntity.status(400).body("Mật khẩu không được để trống");
+		}else if (user.getEmail() == ""){
+			return ResponseEntity.status(400).body("Email không được để trống");
+		}else if (user.getPassword().length() < 6){
+			return ResponseEntity.status(400).body("Mật khẩu phải lớn hơn hoặc bằng 6 ký tự");
+		}else if (!UpperCasePatten.matcher(user.getPassword()).find()) {
+	    	return ResponseEntity.status(400).body("Mật khẩu phải chứa ít nhất 1 ký tự in hoa");
+		}else if (!lowerCasePatten.matcher(user.getPassword()).find()) {
+	    	return ResponseEntity.status(400).body("Mật khẩu phải chứa ít nhất 1 ký tự thường");
+		}else if (!digitCasePatten.matcher(user.getPassword()).find()) {
+	    	return ResponseEntity.status(400).body("Mật khẩu phải chứa ít nhất 1 ký tự số");
+	    }else if (!specailCharPatten.matcher(user.getPassword()).find()) {
+	    	return ResponseEntity.status(400).body("Mật khẩu phải chứa ít nhất 1 ký tự đặc biệt");
+	    }
+		
 		List<User> listUsers = userRepository.findAll();
 		for(int i=0; i<listUsers.size(); i++) {
 			if(listUsers.get(i).getUsername().equals(user.getUsername())) {
-				return ResponseEntity.status(400).body("Username đã tồn tại");
+				return ResponseEntity.status(400).body("Tài khoản đã tồn tại");
 			}
 		}
 		for(int i=0; i<listUsers.size(); i++) {

@@ -59,34 +59,33 @@ export const login = (username, password) => async(dispatch) => {
         'Content-Type': 'application/json',
       },
     };
-    const {data} = await axios.post(`${BASE_URL}/user/login`, {username, password}, config);
-    dispatch({
-      type: USER_LOGIN_SUCCESS,
-      payload: data,
-    });
-    localStorage.setItem('userInfo', JSON.stringify(data));
+
+      const {data} = await axios.post(`${BASE_URL}/user/login`, {username, password}, config);
+      dispatch({
+        type: USER_LOGIN_SUCCESS,
+        payload: data,
+      });
+      localStorage.setItem('userInfo', JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: USER_LOGIN_FAIL,
-      //payload: error.response && error.response.data,
-      payload: "Sai tài khoản hoặc mật khẩu"
+      payload: error.response && error.response.data.msg,
     });
-    
   }
 };
 
 export const register = (userInfo) => async(dispatch) => {
   try {
-    dispatch({ type: USER_REGISTER_REQUEST });
-    const {data} = await axios.post(`${BASE_URL}/user/register`, userInfo);
-    dispatch({
-      type: USER_REGISTER_SUCCESS,
-      payload: data,
-    });
+      dispatch({ type: USER_REGISTER_REQUEST });
+      const {data} = await axios.post(`${BASE_URL}/user/register`, userInfo);
+      dispatch({
+        type: USER_REGISTER_SUCCESS,
+        payload: data,
+      });
   } catch (error) {
     dispatch({
       type: USER_REGISTER_FAIL,
-      payload: error.response.data,
+      payload: error.response && error.response.data,
     });
   }
 };

@@ -33,7 +33,6 @@ public class BlogController {
 		return blogRepository.findAll();
 	}
 	
-	
 	@PostMapping(value = "/blog/create")
 	public String createBlog(@RequestBody Blog blog) {
 		Blog insertedBlog = blogRepository.insert(blog);
